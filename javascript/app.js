@@ -1,4 +1,5 @@
 window.onload = function (){
+const teamsList = $('#teamsList');
 /**
  *gets the player stats
  *
@@ -23,7 +24,7 @@ window.onload = function (){
  *
  * @param {string} playerName
  */
-function getTeamProfile(city){
+function getTeamProfile(){
 fetch(`https://free-nba.p.rapidapi.com/teams?page=0`,{
     headers: {
         'X-RapidAPI-Host':'free-nba.p.rapidapi.com',
@@ -33,12 +34,35 @@ fetch(`https://free-nba.p.rapidapi.com/teams?page=0`,{
 })
 .then(res => {
     return res.json();
-}).then(player => {
-    console.log(player);
+}).then(teams => {
+    teams.data.map(team => {
+        const slot = $('<option>');
+        slot.attr('value', team.full_name).text(team.full_name);
+        teamsList.append(slot);
+        // console.log(team.full_name);
+    })
 
    
 })
 }
+// function getTeamPlayers(city){
+//     fetch(`https://free-nba.p.rapidapi.com/teams?page=0`,{
+//         headers: {
+//             'X-RapidAPI-Host':'free-nba.p.rapidapi.com',
+//             'X-RapidAPI-Key': 'c6b4ed3e73msh1122d2e76cde6c7p164783jsn9dcad33173e1'
+//         }
+    
+//     })
+//     .then(res => {
+//         return res.json();
+//     }).then(teams => {
+//         console.log(teams.data[0]);
+//         // ;
+//         // })
+    
+       
+//     })
+//     }
 // const submitBtn = $('#submitBtn');
 // const player1 = $('#player1');
 
@@ -58,7 +82,7 @@ fetch(`https://free-nba.p.rapidapi.com/teams?page=0`,{
 //     // .then(res => {console.log(res)});
     
 // }
-getTeamProfile("chicago")
+getTeamProfile();
 
 
 // getPlayer("Lebron James");
