@@ -37,52 +37,42 @@ fetch(`https://free-nba.p.rapidapi.com/teams?page=0`,{
 }).then(teams => {
     teams.data.map(team => {
         const slot = $('<option>');
-        slot.attr('value', team.full_name).text(team.full_name);
+        slot.attr('value', team.id).text(team.full_name);
         teamsList.append(slot);
-        // console.log(team.full_name);
+        console.log(team);
     })
-
+    
    
 })
 }
-// function getTeamPlayers(city){
-//     fetch(`https://free-nba.p.rapidapi.com/teams?page=0`,{
-//         headers: {
-//             'X-RapidAPI-Host':'free-nba.p.rapidapi.com',
-//             'X-RapidAPI-Key': 'c6b4ed3e73msh1122d2e76cde6c7p164783jsn9dcad33173e1'
-//         }
+function getTeamPlayers(teamId){
+    fetch(`https://api-nba-v1.p.rapidapi.com/players/teamId/${teamId}`,{
+        headers: {
+            'X-RapidAPI-Host':'api-nba-v1.p.rapidapi.com',
+            'X-RapidAPI-Key': 'c6b4ed3e73msh1122d2e76cde6c7p164783jsn9dcad33173e1'
+        }
     
-//     })
-//     .then(res => {
-//         return res.json();
-//     }).then(teams => {
-//         console.log(teams.data[0]);
-//         // ;
-//         // })
+    })
+    .then(res => {
+        return res.json();
+    }).then(data=> {
+        console.log(data.api.players);
+        // ;
+        // })
     
        
-//     })
-//     }
-// const submitBtn = $('#submitBtn');
-// const player1 = $('#player1');
+    })
+    }
 
-// submitBtn.on('click', () =>{
-//     // event.preventDefault();
-//     // let playerId = player1.val().trim();
-//     // getPlayer(playerId);
-//     // getPhoto(playerId)
-
-// })
-// function getPhoto(playerId){
-//     // $.getJSON({
-//     //     // https://commons.wikimedia.org/w/api.php?action=query&list=allimages&ailimit=3&format=json&origin=*
-//     // url: `https://mediawiki.org/w/api.php?action=query&format=json&prop=images&titles=cher&callback=?`,
-//     // method: 'GET'
-//     // })
-//     // .then(res => {console.log(res)});
     
-// }
 getTeamProfile();
+teamsList.on('change', () => {
+    var dropDownItem = $(".dropDown").val()
+    getTeamPlayers(dropDownItem);
+   
+
+
+})
 
 
 // getPlayer("Lebron James");
