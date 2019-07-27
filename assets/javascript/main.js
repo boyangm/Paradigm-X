@@ -1,16 +1,16 @@
 $(document).ready(function () {
 
-    
 
-    $("#submit").click(function(event) {
+
+    $("#submit").click(function (event) {
 
         event.preventDefault();
         var search = $("#query").val();
-        var seasonArray = ["2019", "2018", "2017"];
+        var seasonArray = ["2018","2017"];
         timeSeriesData(seasonArray, search);
-        
+
     })
-    
+
 
 });
 
@@ -22,7 +22,7 @@ $(document).ready(function () {
  */
 function getPlayer(season, playerName) {
     // console.log(playerName);
-    fetch('https://free-nba.p.rapidapi.com/players?page=0&per_page=25&search=' + playerName, {
+    fetch('https://free-nba.p.rapidapi.com/players?page=0&per_page=1&search=' + playerName, {
         headers: {
             'X-RapidAPI-Host': 'free-nba.p.rapidapi.com',
             'X-RapidAPI-Key': 'a7f3949689mshde5da85f9f4bd97p11156bjsne0ab871087ee'
@@ -33,7 +33,7 @@ function getPlayer(season, playerName) {
         try {
             var playerId = myJSON.data[0].id;
         }
-        catch(err) {
+        catch (err) {
             console.log("cannot find player: " + playerName);
         }
         getStats(season, playerId);
@@ -50,7 +50,7 @@ function getPlayer(season, playerName) {
  */
 function getStats(season, playerId) {
     // console.log(playerId);
-    fetch(`https://free-nba.p.rapidapi.com/stats?page=0&per_page=25&seasons[]=${season}&player_ids[]=${playerId}`, {
+    fetch(`https://free-nba.p.rapidapi.com/stats?page=1&per_page=100&seasons[]=${season}&player_ids[]=${playerId}`, {
         headers: {
             'X-RapidAPI-Host': 'free-nba.p.rapidapi.com',
             'X-RapidAPI-Key': 'a7f3949689mshde5da85f9f4bd97p11156bjsne0ab871087ee'
@@ -58,8 +58,13 @@ function getStats(season, playerId) {
     }).then(function (response) {
         return response.json()
     }).then(function (myJSON) {
-        console.log(myJSON.data[0]);
-        makeTable(myJSON.data[0]);
+
+        // for (var i = 0; i< myJSON.data.length; i++) {
+        //     makeTable(myJSON.data[i]);
+        // }
+
+        makeTable(myJSON, season);
+
     })
 
 }
@@ -73,7 +78,11 @@ function getStats(season, playerId) {
  */
 function timeSeriesData(dateArray, playerName) {
 
-    for (var i=0; i<dateArray.length; i++) {
+    var table = $("tbody");
+
+    table.empty();
+
+    for (var i = 0; i < dateArray.length; i++) {
 
         // console.log(dateArray[i]);
 
@@ -84,15 +93,46 @@ function timeSeriesData(dateArray, playerName) {
 }
 
 
-function makeTable(statsJSON) {
+/**
+ * Makes additional row on table containing fieldgoal percentage, player name and date
+ *
+ * @param {object} statsJSON response.data[i]
+ */
+function makeTable(statsJSON, season) {
 
     var table = $("tbody");
+
     var row = $("<tr>");
 
-    row.append(`<th>${statsJSON.player.first_name} ${statsJSON.player.last_name}</th>`);
-    row.append(`<th>${statsJSON.game.date}</th>`);
-    row.append(`<th>${statsJSON.fg_pct}</th>`);
+    row.append(`<th>${statsJSON.data[0].player.first_name} ${statsJSON.data[0].player.last_name}</th>`);
+    row.append(`<th>${season}</th>`);
+    row.append(`<th>${average(statsJSON, "fg_pct")}%</th>`);
 
     table.append(row);
+
+}
+
+
+function average(statsJSON, statId) {
+
+    var sum = 0;
+
+    console.log(statsJSON.data);
+
+    for (var i=0; i<statsJSON.data.length; i++) {
+
+        var fg_pct = statsJSON.data[i][statId];
+
+        if (fg_pct < 1) {
+            fg_pct = fg_pct*100;
+        }
+
+        console.log(fg_pct);
+
+        sum += fg_pct;
+
+    }
+
+    return (sum/statsJSON.data.length).toFixed(2);
 
 }
