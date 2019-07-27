@@ -6,7 +6,7 @@ $(document).ready(function () {
 
         event.preventDefault();
         var search = $("#query").val();
-        var seasonArray = ["2018","2017"];
+        var seasonArray = ["2018","2017","2016"];
         timeSeriesData(seasonArray, search);
 
     })
@@ -59,10 +59,6 @@ function getStats(season, playerId) {
         return response.json()
     }).then(function (myJSON) {
 
-        // for (var i = 0; i< myJSON.data.length; i++) {
-        //     makeTable(myJSON.data[i]);
-        // }
-
         makeTable(myJSON, season);
 
     })
@@ -73,7 +69,7 @@ function getStats(season, playerId) {
 /**
  * Gets stats for each time period requested
  *
- * @param {string array} dateArray ["2019-01-01". "2018-01-01", "2017-01-01"]
+ * @param {string array} dateArray ["2018". "2017", "2016"]
  * @param {string} playerName
  */
 function timeSeriesData(dateArray, playerName) {
@@ -83,8 +79,6 @@ function timeSeriesData(dateArray, playerName) {
     table.empty();
 
     for (var i = 0; i < dateArray.length; i++) {
-
-        // console.log(dateArray[i]);
 
         getPlayer(dateArray[i], playerName);
 
@@ -96,7 +90,8 @@ function timeSeriesData(dateArray, playerName) {
 /**
  * Makes additional row on table containing fieldgoal percentage, player name and date
  *
- * @param {object} statsJSON response.data[i]
+ * @param {object} statsJSON api response
+ * @param {string} season "YYYY" year format
  */
 function makeTable(statsJSON, season) {
 
@@ -106,30 +101,63 @@ function makeTable(statsJSON, season) {
 
     row.append(`<th>${statsJSON.data[0].player.first_name} ${statsJSON.data[0].player.last_name}</th>`);
     row.append(`<th>${season}</th>`);
-    row.append(`<th>${average(statsJSON, "fg_pct")}%</th>`);
+    row.append(`<th>${averagePct(statsJSON, "fg_pct")}%</th>`);
+    row.append(`<th>${averagePct(statsJSON, "fg3_pct")}%</th>`);
+    row.append(`<th>${averageInt(statsJSON, "blk")}</th>`);
+    row.append(`<th>${averageInt(statsJSON, "ast")}</th>`);
+    row.append(`<th>${averageInt(statsJSON, "dreb")}</th>`);
 
     table.append(row);
 
 }
 
 
-function average(statsJSON, statId) {
+/**
+ * Calculates the average of a percentages
+ *
+ * @param {object} statsJSON api response
+ * @param {string} statId object key name
+ * @returns float rounded to 2 decimals
+ */
+function averagePct(statsJSON, statId) {
 
     var sum = 0;
 
-    console.log(statsJSON.data);
+    for (var i=0; i<statsJSON.data.length; i++) {
+
+        var pct = statsJSON.data[i][statId];
+
+        if (pct < 1) {
+            pct = pct*100;
+        }
+
+        sum += pct;
+
+    }
+
+    return (sum/statsJSON.data.length).toFixed(2);
+
+}
+
+
+/**
+ * Calculates the average of integers
+ *
+ * @param {object} statsJSON api response
+ * @param {string} statId object key name
+ * @returns 
+ */
+function averageInt(statsJSON, statId) {
+
+    var sum = 0;
 
     for (var i=0; i<statsJSON.data.length; i++) {
 
-        var fg_pct = statsJSON.data[i][statId];
+        var stat = statsJSON.data[i][statId];
 
-        if (fg_pct < 1) {
-            fg_pct = fg_pct*100;
-        }
+        console.log(stat);
 
-        console.log(fg_pct);
-
-        sum += fg_pct;
+        sum += stat;
 
     }
 
