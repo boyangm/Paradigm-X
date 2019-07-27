@@ -6,8 +6,8 @@ $(document).ready(function () {
 
         event.preventDefault();
         var search = $("#query").val();
-        var dateArray = ["2019-01-01", "2018-01-01", "2017-01-01"];
-        timeSeriesData(dateArray, search);
+        var seasonArray = ["2019", "2018", "2017"];
+        timeSeriesData(seasonArray, search);
         
     })
     
@@ -20,7 +20,7 @@ $(document).ready(function () {
  *
  * @param {string} playerName
  */
-function getPlayer(date, playerName) {
+function getPlayer(season, playerName) {
     // console.log(playerName);
     fetch('https://free-nba.p.rapidapi.com/players?page=0&per_page=25&search=' + playerName, {
         headers: {
@@ -36,7 +36,7 @@ function getPlayer(date, playerName) {
         catch(err) {
             console.log("cannot find player: " + playerName);
         }
-        getStats(date, playerId);
+        getStats(season, playerId);
     })
 
 }
@@ -48,9 +48,9 @@ function getPlayer(date, playerName) {
  * @param {integer} playerId
  * @param {string} date 'YYYY-MM-DD'
  */
-function getStats(date, playerId) {
+function getStats(season, playerId) {
     // console.log(playerId);
-    fetch(`https://free-nba.p.rapidapi.com/stats?page=0&per_page=25&dates=${date}&player_ids=${playerId}`, {
+    fetch(`https://free-nba.p.rapidapi.com/stats?page=0&per_page=25&seasons[]=${season}&player_ids[]=${playerId}`, {
         headers: {
             'X-RapidAPI-Host': 'free-nba.p.rapidapi.com',
             'X-RapidAPI-Key': 'a7f3949689mshde5da85f9f4bd97p11156bjsne0ab871087ee'
