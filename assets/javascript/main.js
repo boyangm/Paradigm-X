@@ -1,16 +1,13 @@
 $(document).ready(function () {
 
-
-
     $("#submit").click(function (event) {
 
         event.preventDefault();
         var search = $("#query").val();
-        var seasonArray = ["2018","2017","2016"];
+        var seasonArray = ["2018", "2017", "2016"];
         timeSeriesData(seasonArray, search);
 
-    })
-
+    });
 
 });
 
@@ -18,11 +15,12 @@ $(document).ready(function () {
 /**
  * Gets id of player in free-nba calls get stats
  *
+ * @param {string} seasons
  * @param {string} playerName
  */
-function getPlayer(season, playerName) {
+function getPlayer(seasons, playerName) {
     // console.log(playerName);
-    fetch('https://free-nba.p.rapidapi.com/players?page=0&per_page=1&search=' + playerName, {
+    fetch('https://free-nba.p.rapidapi.com/players?page=1&per_page=1&search=' + playerName, {
         headers: {
             'X-RapidAPI-Host': 'free-nba.p.rapidapi.com',
             'X-RapidAPI-Key': 'a7f3949689mshde5da85f9f4bd97p11156bjsne0ab871087ee'
@@ -36,8 +34,14 @@ function getPlayer(season, playerName) {
         catch (err) {
             console.log("cannot find player: " + playerName);
         }
-        getStats(season, playerId);
-    })
+
+        populateProfile(myJSON);
+        var stats = {};
+        for (var i = 0; i < seasons.length; i++) {
+            getStats(seasons[i], playerId, stats);
+        }
+
+    });
 
 }
 
@@ -48,7 +52,7 @@ function getPlayer(season, playerName) {
  * @param {integer} playerId
  * @param {string} date 'YYYY-MM-DD'
  */
-function getStats(season, playerId) {
+function getStats(season, playerId, stats) {
     // console.log(playerId);
     fetch(`https://free-nba.p.rapidapi.com/stats?page=1&per_page=100&seasons[]=${season}&player_ids[]=${playerId}`, {
         headers: {
@@ -61,7 +65,21 @@ function getStats(season, playerId) {
 
         makeTable(myJSON, season);
 
-    })
+        stats[season] = {
+
+            aveFgPct: averagePct(myJSON, "fg_pct"),
+            aveFg3Pct: averagePct(myJSON, "fg3_pct"),
+            aveAst: averageInt(myJSON, "ast"),
+            aveReb: averageInt(myJSON, "dreb"),
+            aveBlk: averageInt(myJSON, "blk")
+            
+        }
+
+        if (Object.keys(stats).length===3) {
+            getTrends(stats);
+        }
+
+    });
 
 }
 
@@ -72,17 +90,13 @@ function getStats(season, playerId) {
  * @param {string array} dateArray ["2018". "2017", "2016"]
  * @param {string} playerName
  */
-function timeSeriesData(dateArray, playerName) {
+function timeSeriesData(seasons, playerName) {
 
-    var table = $("tbody");
+    var table = $("#stats-body");
 
     table.empty();
 
-    for (var i = 0; i < dateArray.length; i++) {
-
-        getPlayer(dateArray[i], playerName);
-
-    }
+    getPlayer(seasons, playerName);
 
 }
 
@@ -95,17 +109,18 @@ function timeSeriesData(dateArray, playerName) {
  */
 function makeTable(statsJSON, season) {
 
-    var table = $("tbody");
+    var table = $("#stats-body");
 
     var row = $("<tr>");
 
-    row.append(`<th>${statsJSON.data[0].player.first_name} ${statsJSON.data[0].player.last_name}</th>`);
-    row.append(`<th>${season}</th>`);
-    row.append(`<th>${averagePct(statsJSON, "fg_pct")}%</th>`);
-    row.append(`<th>${averagePct(statsJSON, "fg3_pct")}%</th>`);
-    row.append(`<th>${averageInt(statsJSON, "blk")}</th>`);
-    row.append(`<th>${averageInt(statsJSON, "ast")}</th>`);
-    row.append(`<th>${averageInt(statsJSON, "dreb")}</th>`);
+    row.attr("class", "stat-row");
+
+    row.append(`<td>${season}</td>`);
+    row.append(`<td>${averagePct(statsJSON, "fg_pct")}%</td>`);
+    row.append(`<td>${averagePct(statsJSON, "fg3_pct")}%</td>`);
+    row.append(`<td>${averageInt(statsJSON, "blk")}</td>`);
+    row.append(`<td>${averageInt(statsJSON, "ast")}</td>`);
+    row.append(`<td>${averageInt(statsJSON, "dreb")}</td>`);
 
     table.append(row);
 
@@ -123,19 +138,19 @@ function averagePct(statsJSON, statId) {
 
     var sum = 0;
 
-    for (var i=0; i<statsJSON.data.length; i++) {
+    for (var i = 0; i < statsJSON.data.length; i++) {
 
         var pct = statsJSON.data[i][statId];
 
         if (pct < 1) {
-            pct = pct*100;
+            pct = pct * 100;
         }
 
         sum += pct;
 
     }
 
-    return (sum/statsJSON.data.length).toFixed(2);
+    return (sum / statsJSON.data.length).toFixed(2);
 
 }
 
@@ -145,22 +160,104 @@ function averagePct(statsJSON, statId) {
  *
  * @param {object} statsJSON api response
  * @param {string} statId object key name
- * @returns 
+ * @returns float rounded to 2 decimals
  */
 function averageInt(statsJSON, statId) {
 
     var sum = 0;
 
-    for (var i=0; i<statsJSON.data.length; i++) {
+    for (var i = 0; i < statsJSON.data.length; i++) {
 
         var stat = statsJSON.data[i][statId];
-
-        console.log(stat);
 
         sum += stat;
 
     }
 
-    return (sum/statsJSON.data.length).toFixed(2);
+    return (sum / statsJSON.data.length).toFixed(2);
+
+}
+
+
+/**
+ * populates the profile information with what's provided by the api
+ *
+ * @param {object} playerJSON player api response
+ */
+function populateProfile(playerJSON) {
+
+    $("#prof-name").empty();
+    $("#prof-position").empty();
+    $("#prof-team").empty();
+    $("#prof-conference").empty();
+    $("#prof-division").empty();
+
+    var profile = playerJSON.data[0];
+
+    var name = profile.first_name + " " + profile.last_name;
+
+    $("#prof-name").text(name);
+    $("#prof-position").text(profile.position);
+    $("#prof-team").text(profile.team.name);
+    $("#prof-conference").text(profile.team.conference);
+    $("#prof-division").text(profile.team.division);
+
+}
+
+
+
+
+
+function getTrends(seasonStats) {
+
+    var seasons = Object.keys(seasonStats);
+
+    var n = seasons.length;
+
+    var stats = Object.keys(seasonStats[seasons[0]]);
+
+    $("#trend-body").empty();
+
+    for (var i=0; i<stats.length; i ++) {
+
+        // mean
+        var sumY = 0;
+
+        var sumX = 0;
+    
+        for (var j=0; j<n; j++) {
+
+            sumY += parseFloat(seasonStats[seasons[j]][stats[i]]);
+    
+        }
+
+        var sumYR = 0;
+
+        var productSum = 0;
+
+        var count = 0;
+    
+        for (var j=1; j<n; j++) {
+
+            tempM = parseFloat(seasonStats[seasons[j]][stats[i]])-parseFloat(seasonStats[seasons[j-1]][stats[i]]);
+
+            // console.log(tempM);
+
+            sumYR += (parseFloat(seasonStats[seasons[j]][stats[i]])-parseFloat(seasonStats[seasons[j-1]][stats[i]]));
+    
+            count ++;
+
+        }
+
+        var m = (sumYR/(n-1)).toFixed(2);
+        // console.log("----");
+        // console.log(m);
+        // console.log("------------");
+
+        $("#trend-body").append(`<td>${m}</td>`);
+        
+    }
+
+    $("#trend-body").prepend(`<td></td>`);
 
 }
