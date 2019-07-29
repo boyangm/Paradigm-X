@@ -1,0 +1,74 @@
+body {
+    padding: 25px;
+}
+
+
+#chart {
+
+    display:grid;
+    grid-template-columns: 16vw 16vw 16vw 16vw 16vw 16vw;
+
+}
+
+.chart-div {
+
+    height: 250px;
+
+}
+
+#chart-row {
+
+    height: 0;
+    background: transparent;
+    padding: 0;
+
+}
+
+#chart-row td {
+
+    padding: 0;
+    height: 0;
+
+}
+
+.table {
+
+    margin-bottom: 0;
+
+}
+
+#season-stats {
+    border: 1px silver solid;
+}
+
+table {
+    border-radius: 20%;
+}
+
+#player-prof {
+
+    width: 40%;
+    
+}
+
+.card-horizontal {
+    padding: 5px 5px 5px 5px;
+    display: flex;
+    flex: 1 1 auto;
+    /* border: solid 1px silver; */
+    width: 350px;
+}
+
+.card-body {
+    padding-left: 5px;
+}
+
+h4 {
+    padding: 5px;
+}
+
+#stats-body>tr>td, #trend-body>#trend-stats>td {
+    padding-left: 50px;
+}
+
+

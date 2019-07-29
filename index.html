@@ -1,14 +1,103 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Page Title</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='assets/css/'>
-    <script src='assets/javascript/'></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src='assets/javascript/main.js'></script>
+    <link rel='stylesheet' type='text/css' media='screen' href='assets/css/main.css'>
 </head>
+
 <body>
-    
+    <div>
+        <form>
+            <input id="query" type="text">
+            <input id="submit" type="submit">
+        </form>
+    </div>
+
+    <br><br>
+    <!--  -->
+    <h2 id="prof-name"></h2>
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-12 mt-3">
+                <div class="card">
+                    <div class="card-horizontal">
+                        <div class="img-square-wrapper">
+                            <img class="" id="player-img" alt="Player Image">
+                        </div>
+                        <div class="card-body">
+                            <table id="player-prof" class="table">
+                                <tr>
+                                    <th>Position: </th>
+                                    <td id="prof-position"></td>
+                                </tr>
+                                <tr>
+                                    <th>Team: </th>
+                                    <td id="prof-team"></td>
+                                </tr>
+                                <tr>
+                                    <th>Conference: </th>
+                                    <td id="prof-conference"></td>
+                                </tr>
+                                <tr>
+                                    <th>Division: </th>
+                                    <td id="prof-division"></td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!--  -->
+
+
+    <div>
+        <h3>Season Stats</h3>
+        <p>Average per game</p>
+        <table id="season-stats" class="table table-striped">
+            <thead>
+                <th>Season</th>
+                <th>Field Goal %</th>
+                <th>3 Pt Field Goal %</th>
+                <th>Assists</th>
+                <th>Rebounds</th>
+                <th>Blocks</th>
+            </thead>
+            <tbody id="stats-body">
+
+            </tbody>
+            <thead>
+                <th>Trends</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </thead>
+            <tbody id="trend-body">
+            </tbody>
+        </table>
+    </div>
+    <div id="chart">
+        <div id="#chart-placeholder" class="chart-div"></div>
+    </div>
+
 </body>
+
 </html>

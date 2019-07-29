@@ -238,6 +238,8 @@ function getTrends(seasonStats) {
 
     $("#trend-body").empty();
 
+    $("#trend-body").append("<tr id='trend-stats'></tr>");
+
     for (var i = 0; i < stats.length; i++) {
 
         var sumYR = 0;
@@ -253,13 +255,17 @@ function getTrends(seasonStats) {
         // console.log(m);
         // console.log("------------");
 
-        $("#trend-body").append(`<td>${m}</td>`);
+        $("#trend-stats").append(`<td>${m}</td>`);
 
         trends[stats[i]] = m;
 
     }
 
-    $("#trend-body").prepend(`<td></td>`);
+    $("#trend-stats").prepend(`<td></td>`);
+
+    $("#trend-body").append(`<tr id='chart-row'></tr>`);
+
+    $("#chart-row").append("<td>");
 
     return trends
 
@@ -308,29 +314,33 @@ function chart(seasonStats, trends) {
 
         var layout = {
             title: false,
-            // autosize: false,
-            margin: { l: 0, t: 0, r: 0, b: 100 },
+            autosize: false,
+            height: 100,
+            width: 150,
+            margin: {
+                t: 5,
+                r: 20,
+                l: 20,
+                b: 25,
+                pad: 0
+            },
             xaxis: {
-                showticklabels: false,
-                // automargin: true
+                showticklabels: false
             },
             yaxis: {
-                showticklabels: false,
-                // automargin: true
+                showticklabels: false
             },
             showlegend: false,
-            margin: 0
         };
 
         var config = {
 
             showSendToCloud: false,
-            displayModeBar: false,
-            // responsive: true
+            displayModeBar: false
 
         }
 
-        $("#chart").append(`<div id='${stats[i]}-chart' class='chart-div'></div>`);
+        $("#chart-row").append(`<td id='${stats[i]}-chart'></td>`);
 
         Plotly.newPlot(`${stats[i]}-chart`, data, layout, config);
 
@@ -342,8 +352,6 @@ function chart(seasonStats, trends) {
 function trendLine(seasonStats, m, statId) {
 
     var seasons = Object.keys(seasonStats);
-
-    var stats = Object.keys(seasonStats[seasons[0]]);
 
     var line = [];
 
@@ -417,7 +425,6 @@ function getImg(playerName) {
  
             var page = response.query.pages;
             var pkey = Object.keys(page);
-            console.log(page);
             var src = page[pkey[0]].thumbnail.source;
             $("#player-img").attr("src", src);
  
