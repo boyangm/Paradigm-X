@@ -34,8 +34,10 @@ function getPlayer(seasons, playerName) {
         catch (err) {
             console.log("cannot find player: " + playerName);
         }
-
+        var name = myJSON.data[0].first_name + "_" + myJSON.data[0].last_name;
+        getImg(name);
         populateProfile(myJSON);
+        // getImg(playerName);
         var stats = {};
         for (var i = 0; i < seasons.length; i++) {
             getStats(seasons[i], playerId, stats);
@@ -63,7 +65,7 @@ function getStats(season, playerId, stats) {
         return response.json()
     }).then(function (myJSON) {
 
-        makeTable(myJSON, season);
+        // makeTable(myJSON, season);
 
         stats[season] = {
 
@@ -72,11 +74,15 @@ function getStats(season, playerId, stats) {
             aveAst: averageInt(myJSON, "ast"),
             aveReb: averageInt(myJSON, "dreb"),
             aveBlk: averageInt(myJSON, "blk")
-            
+
         }
 
-        if (Object.keys(stats).length===3) {
-            getTrends(stats);
+        var keys = Object.keys(stats);
+        var lenStats = keys.length;
+        if (lenStats === 3) {
+            makeTable(stats);
+            var trends = getTrends(stats);
+            chart(stats, trends);
         }
 
     });
@@ -107,22 +113,30 @@ function timeSeriesData(seasons, playerName) {
  * @param {object} statsJSON api response
  * @param {string} season "YYYY" year format
  */
-function makeTable(statsJSON, season) {
+function makeTable(seasonStats) {
 
     var table = $("#stats-body");
 
-    var row = $("<tr>");
+    var seasons = Object.keys(seasonStats);
 
-    row.attr("class", "stat-row");
+    var stats = Object.keys(seasonStats[seasons[0]]);
 
-    row.append(`<td>${season}</td>`);
-    row.append(`<td>${averagePct(statsJSON, "fg_pct")}%</td>`);
-    row.append(`<td>${averagePct(statsJSON, "fg3_pct")}%</td>`);
-    row.append(`<td>${averageInt(statsJSON, "blk")}</td>`);
-    row.append(`<td>${averageInt(statsJSON, "ast")}</td>`);
-    row.append(`<td>${averageInt(statsJSON, "dreb")}</td>`);
+    for (var i = 0; i < seasons.length; i++) {
 
-    table.append(row);
+        var row = $("<tr>");
+        row.attr("class", "stat-row");
+
+        row.append(`<td>${seasons[i]}</td>`);
+
+        for (var j = 0; j < stats.length; j++) {
+
+            row.append(`<td>${seasonStats[seasons[i]][stats[j]]}</td>`);
+
+        }
+
+        table.append(row);
+
+    }
 
 }
 
@@ -206,9 +220,15 @@ function populateProfile(playerJSON) {
 
 
 
-
-
+/**
+ * Returns the average slope (m where y = mx + b) of the player's stats
+ *
+ * @param {object} seasonStats
+ * @returns {object} contaiing trends keys same as season stats
+ */
 function getTrends(seasonStats) {
+
+    var trends = {};
 
     var seasons = Object.keys(seasonStats);
 
@@ -218,46 +238,194 @@ function getTrends(seasonStats) {
 
     $("#trend-body").empty();
 
-    for (var i=0; i<stats.length; i ++) {
-
-        // mean
-        var sumY = 0;
-
-        var sumX = 0;
-    
-        for (var j=0; j<n; j++) {
-
-            sumY += parseFloat(seasonStats[seasons[j]][stats[i]]);
-    
-        }
+    for (var i = 0; i < stats.length; i++) {
 
         var sumYR = 0;
 
-        var productSum = 0;
+        for (var j = 1; j < n; j++) {
 
-        var count = 0;
-    
-        for (var j=1; j<n; j++) {
-
-            tempM = parseFloat(seasonStats[seasons[j]][stats[i]])-parseFloat(seasonStats[seasons[j-1]][stats[i]]);
-
-            // console.log(tempM);
-
-            sumYR += (parseFloat(seasonStats[seasons[j]][stats[i]])-parseFloat(seasonStats[seasons[j-1]][stats[i]]));
-    
-            count ++;
+            sumYR += (parseFloat(seasonStats[seasons[j]][stats[i]]) - parseFloat(seasonStats[seasons[j - 1]][stats[i]]));
 
         }
 
-        var m = (sumYR/(n-1)).toFixed(2);
+        var m = (sumYR / (n - 1)).toFixed(2);
         // console.log("----");
         // console.log(m);
         // console.log("------------");
 
         $("#trend-body").append(`<td>${m}</td>`);
-        
+
+        trends[stats[i]] = m;
+
     }
 
     $("#trend-body").prepend(`<td></td>`);
 
+    return trends
+
 }
+
+
+function chart(seasonStats, trends) {
+
+    var seasons = Object.keys(seasonStats);
+
+    var stats = Object.keys(seasonStats[seasons[0]]);
+
+    // console.log(seasons);
+
+    for (var i = 0; i < stats.length; i++) {
+
+        var statArr = [];
+
+        for (var j = 0; j < seasons.length; j++) {
+
+            statArr.push(seasonStats[seasons[j]][stats[i]]);
+
+        }
+
+        // console.log(statArr);
+
+        var trace1 = {
+            type: "scatter",
+            mode: "lines",
+            name: 'Player Stats',
+            x: seasons,
+            y: statArr,
+            line: { color: '#17BECF' }
+        }
+
+        var trace2 = {
+            type: "scatter",
+            mode: "lines",
+            name: 'Trend',
+            x: seasons,
+            y: trendLine(seasonStats, trends[stats[i]], stats[i]),
+            line: { color: 'red' }
+        }
+
+        var data = [trace1, trace2];
+
+        var layout = {
+            title: false,
+            // autosize: false,
+            margin: { l: 0, t: 0, r: 0, b: 100 },
+            xaxis: {
+                showticklabels: false,
+                // automargin: true
+            },
+            yaxis: {
+                showticklabels: false,
+                // automargin: true
+            },
+            showlegend: false,
+            margin: 0
+        };
+
+        var config = {
+
+            showSendToCloud: false,
+            displayModeBar: false,
+            // responsive: true
+
+        }
+
+        $("#chart").append(`<div id='${stats[i]}-chart' class='chart-div'></div>`);
+
+        Plotly.newPlot(`${stats[i]}-chart`, data, layout, config);
+
+    }
+
+}
+
+
+function trendLine(seasonStats, m, statId) {
+
+    var seasons = Object.keys(seasonStats);
+
+    var stats = Object.keys(seasonStats[seasons[0]]);
+
+    var line = [];
+
+    var b = calcB(m, seasonStats, statId)
+
+    // console.log(b)
+
+    for (var i = 0; i < seasons.length; i++) {
+
+        var prediction = b + m * (i + 1);
+
+        line.push(prediction);
+
+    }
+
+    // console.log(line)
+
+    return line
+
+}
+
+
+function calcB(m, seasonStats, statId) {
+
+    // y = mx + b
+    // b = y - mx
+
+    // calc ave of stat
+
+    var seasons = Object.keys(seasonStats);
+
+    var sumx = 0;
+
+    for (var i = 0; i < seasons.length; i++) {
+
+        sumx += parseFloat(seasonStats[seasons[i]][statId]);
+
+    }
+
+    var y = (sumx / seasons.length).toFixed(2);
+
+    // calc ave of seasons
+
+    var sumy = 0;
+
+    for (var i = 0; i < seasons.length; i++) {
+
+        sumy += i + 1;
+
+    }
+
+    var x = (sumy / seasons.length).toFixed(2);
+
+    var b = y - (m * x);
+
+    return b
+
+}
+
+
+function getImg(playerName) {
+
+    var query = `http://en.wikipedia.org/w/api.php?action=query&titles=${playerName}&format=json&prop=pageimages&callback=?`;
+
+    $.ajax({
+        type: "GET",
+        url: query,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+ 
+            var page = response.query.pages;
+            var pkey = Object.keys(page);
+            var src = page[pkey[0]].thumbnail.source;
+            $("#player-img").attr("src", src);
+ 
+        },
+        error: function (errorMessage) {
+        }
+    });
+
+
+}
+
+
