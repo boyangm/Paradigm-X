@@ -406,7 +406,7 @@ function calcB(m, seasonStats, statId) {
 
 function getImg(playerName) {
 
-    var query = `http://en.wikipedia.org/w/api.php?action=query&titles=${playerName}&format=json&prop=pageimages&callback=?`;
+    var query = `http://en.wikipedia.org/w/api.php?action=query&titles=${playerName}&format=json&prop=pageimages&pithumbsize=200&callback=?`;
 
     $.ajax({
         type: "GET",
@@ -417,6 +417,7 @@ function getImg(playerName) {
  
             var page = response.query.pages;
             var pkey = Object.keys(page);
+            console.log(page);
             var src = page[pkey[0]].thumbnail.source;
             $("#player-img").attr("src", src);
  
@@ -424,7 +425,6 @@ function getImg(playerName) {
         error: function (errorMessage) {
         }
     });
-
 
 }
 
