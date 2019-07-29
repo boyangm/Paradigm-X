@@ -414,7 +414,7 @@ function calcB(m, seasonStats, statId) {
 
 function getImg(playerName) {
 
-    var query = `http://en.wikipedia.org/w/api.php?action=query&titles=${playerName}&format=json&prop=pageimages&pithumbsize=200&callback=?`;
+    var query = `https://en.wikipedia.org/w/api.php?action=query&titles=${playerName}&format=json&prop=pageimages&pithumbsize=200&callback=?`;
 
     $.ajax({
         type: "GET",
