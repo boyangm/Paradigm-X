@@ -4,7 +4,7 @@ $(document).ready(function () {
 
         event.preventDefault();
         var search = $("#query").val();
-        var seasonArray = ["2018", "2017", "2016"];
+        var seasonArray = ["2018", "2017", "2016", "2015"];
         timeSeriesData(seasonArray, search);
 
     });
@@ -40,7 +40,7 @@ function getPlayer(seasons, playerName) {
         // getImg(playerName);
         var stats = {};
         for (var i = 0; i < seasons.length; i++) {
-            getStats(seasons[i], playerId, stats);
+            getStats(seasons[i], playerId, stats, seasons.length);
         }
 
     });
@@ -54,7 +54,7 @@ function getPlayer(seasons, playerName) {
  * @param {integer} playerId
  * @param {string} date 'YYYY-MM-DD'
  */
-function getStats(season, playerId, stats) {
+function getStats(season, playerId, stats, lenSeasons) {
     // console.log(playerId);
     fetch(`https://free-nba.p.rapidapi.com/stats?page=1&per_page=100&seasons[]=${season}&player_ids[]=${playerId}`, {
         headers: {
@@ -79,7 +79,8 @@ function getStats(season, playerId, stats) {
 
         var keys = Object.keys(stats);
         var lenStats = keys.length;
-        if (lenStats === 3) {
+
+        if (lenStats === lenSeasons) {
             makeTable(stats);
             var trends = getTrends(stats);
             chart(stats, trends);
