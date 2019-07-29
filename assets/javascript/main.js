@@ -81,6 +81,7 @@ function getStats(season, playerId, stats, lenSeasons) {
         var lenStats = keys.length;
 
         if (lenStats === lenSeasons) {
+            // if (keys[keys.length - 1] === season) {
             makeTable(stats);
             var trends = getTrends(stats);
             chart(stats, trends);
@@ -423,12 +424,12 @@ function getImg(playerName) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
- 
+
             var page = response.query.pages;
             var pkey = Object.keys(page);
             var src = page[pkey[0]].thumbnail.source;
             $("#player-img").attr("src", src);
- 
+
         },
         error: function (errorMessage) {
         }
