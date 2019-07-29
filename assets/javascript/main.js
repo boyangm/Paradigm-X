@@ -4,7 +4,7 @@ $(document).ready(function () {
 
         event.preventDefault();
         var search = $("#query").val();
-        var seasonArray = ["2018", "2017", "2016", "2015"];
+        var seasonArray = ["2018", "2017", "2016", "2015", "2014"];
         timeSeriesData(seasonArray, search);
 
     });
