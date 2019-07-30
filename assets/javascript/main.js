@@ -4,7 +4,8 @@ $(document).ready(function () {
 
         event.preventDefault();
         var search = $("#query").val();
-        var seasonArray = ["2018", "2017", "2016", "2015", "2014"];
+        // var seasonArray = ["2018", "2017", "2016", "2015", "2014"];
+        var seasonArray = ["2014", "2015", "2016", "2017", "2018"];
         timeSeriesData(seasonArray, search);
 
     });
@@ -37,10 +38,11 @@ function getPlayer(seasons, playerName) {
         var name = myJSON.data[0].first_name + "_" + myJSON.data[0].last_name;
         getImg(name);
         populateProfile(myJSON);
-        // getImg(playerName);
         var stats = {};
+        let count = {count: 0};
         for (var i = 0; i < seasons.length; i++) {
-            getStats(seasons[i], playerId, stats, seasons.length);
+            // count.push("complete");
+            getStats(seasons[i], playerId, stats, seasons, count);
         }
 
     });
@@ -54,7 +56,8 @@ function getPlayer(seasons, playerName) {
  * @param {integer} playerId
  * @param {string} date 'YYYY-MM-DD'
  */
-function getStats(season, playerId, stats, lenSeasons) {
+function getStats(season, playerId, stats, seasons, count) {
+
     // console.log(playerId);
     fetch(`https://free-nba.p.rapidapi.com/stats?page=1&per_page=100&seasons[]=${season}&player_ids[]=${playerId}`, {
         headers: {
@@ -67,26 +70,32 @@ function getStats(season, playerId, stats, lenSeasons) {
 
         // makeTable(myJSON, season);
 
-        stats[season] = {
+        if (myJSON.data.length > 0) {
 
-            aveFgPct: averagePct(myJSON, "fg_pct"),
-            aveFg3Pct: averagePct(myJSON, "fg3_pct"),
-            aveAst: averageInt(myJSON, "ast"),
-            aveReb: averageInt(myJSON, "dreb"),
-            aveBlk: averageInt(myJSON, "blk")
+            stats[season] = {
+
+                aveFgPct: averagePct(myJSON, "fg_pct"),
+                aveFg3Pct: averagePct(myJSON, "fg3_pct"),
+                aveAst: averageInt(myJSON, "ast"),
+                aveReb: averageInt(myJSON, "dreb"),
+                aveBlk: averageInt(myJSON, "blk"),
+
+            }
 
         }
 
         var keys = Object.keys(stats);
-        var lenStats = keys.length;
 
-        if (lenStats === lenSeasons) {
-            // if (keys[keys.length - 1] === season) {
+        count.count ++;
+
+        if (count.count === seasons.length) {
+
             makeTable(stats);
             var trends = getTrends(stats);
             chart(stats, trends);
-        }
 
+        }
+    
     });
 
 }
@@ -426,6 +435,7 @@ function getImg(playerName) {
         success: function (response) {
 
             var page = response.query.pages;
+            console.log(page);
             var pkey = Object.keys(page);
             var src = page[pkey[0]].thumbnail.source;
             $("#player-img").attr("src", src);
