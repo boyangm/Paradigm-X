@@ -45,6 +45,11 @@ fetch(`https://free-nba.p.rapidapi.com/teams?page=0`,{
    
 })
 }
+/**
+ * 
+ *gets the players from the team ID
+ * @param {string} teamId
+ */
 function getTeamPlayers(teamId){
     fetch(`https://api-nba-v1.p.rapidapi.com/players/teamId/${teamId}`,{
         headers: {
@@ -56,14 +61,27 @@ function getTeamPlayers(teamId){
     .then(res => {
         return res.json();
     }).then(data=> {
-        console.log(data.api.players);
-        // ;
-        // })
-    
-       
+        const newSelect = $('<select>');
+        newSelect.addClass('playerList');
+        let players = data.api.players;
+        players.map(player =>{
+            const slot = $('<option>');
+            slot.attr('idNum', player.playerID ).attr('teamId', player.teamId).text(`${player.lastName}, ${player.firstName}`);
+            newSelect.append(slot);
+        })
+        $('.container').append(newSelect)
+        console.log(data.api.players);   
     })
     }
+    $(document).on('change', "select", ()=>{
+        let id = $('.playerList').val();
+        fetch(`https://api.gettyimages.com/v3/images/${id}`)
+        .then(res => { return res.json()})
+        .then(data => {
+            console.log(data);
+        })
 
+    })
     
 getTeamProfile();
 teamsList.on('change', () => {
