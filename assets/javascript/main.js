@@ -30,6 +30,7 @@ function getPlayer(seasons, playerName) {
     }).then(function (myJSON) {
         try {
             var playerId = myJSON.data[0].id;
+            console.log( myJSON.data[0]);
         }
         catch (err) {
             console.log("cannot find player: " + playerName);
@@ -414,7 +415,7 @@ function calcB(m, seasonStats, statId) {
 }
 
 
-function getImg(playerName) {
+function getImg(playerName,team) {
 
     var query = `https://en.wikipedia.org/w/api.php?action=query&titles=${playerName}&format=json&prop=pageimages&pithumbsize=200&callback=?`;
 

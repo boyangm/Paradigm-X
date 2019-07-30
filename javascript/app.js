@@ -1,29 +1,7 @@
 window.onload = function (){
 const teamsList = $('#teamsList');
-/**
- *gets the player stats
- *
- * @param {string} id
- */
-// function getStats(id){
-//     fetch(`https://free-nba.p.rapidapi.com/stats?page=0&per_page=25&player_ids${id} `,{
-//         headers: {
-//             'X-RapidAPI-Host':' free-nba.p.rapidapi.com',
-//             'X-RapidAPI-Key': 'c6b4ed3e73msh1122d2e76cde6c7p164783jsn9dcad33173e1'
-//         }
-    
-//     })
-//     .then(res => {
-//         return res.json();
-//     }).then(playerStats => {
-//         console.log(playerStats);
-//     })
-//     }
-/**
- * gets the player id and team info.
- *
- * @param {string} playerName
- */
+let team = false;
+
 function getTeamProfile(){
 fetch(`https://free-nba.p.rapidapi.com/teams?page=0`,{
     headers: {
@@ -69,24 +47,20 @@ function getTeamPlayers(teamId){
             slot.attr('idNum', player.playerID ).attr('teamId', player.teamId).text(`${player.lastName}, ${player.firstName}`);
             newSelect.append(slot);
         })
-        $('.container').append(newSelect)
-        console.log(data.api.players);   
+        $('#teamsList').append(newSelect)
+        // console.log(data.api.players);   
     })
     }
-    $(document).on('change', "select", ()=>{
-        let id = $('.playerList').val();
-        fetch(`https://api.gettyimages.com/v3/images/${id}`)
-        .then(res => { return res.json()})
-        .then(data => {
-            console.log(data);
-        })
 
-    })
     
 getTeamProfile();
 teamsList.on('change', () => {
     var dropDownItem = $(".dropDown").val()
+    team= true;
+   
+    // getImg(dropDownItem, team);
     getTeamPlayers(dropDownItem);
+    
    
 
 
