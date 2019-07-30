@@ -84,10 +84,6 @@ function getStats(season, playerId, stats, seasons, count) {
 
         }
 
-        // if (count === seasons.length) {
-            // if (lenStats === lenSeasons) {
-            // if (keys[keys.length - 1] === season) {
-
         var keys = Object.keys(stats);
 
         count.count ++;
