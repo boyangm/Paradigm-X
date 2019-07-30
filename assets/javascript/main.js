@@ -435,6 +435,7 @@ function getImg(playerName) {
         success: function (response) {
 
             var page = response.query.pages;
+            console.log(page);
             var pkey = Object.keys(page);
             var src = page[pkey[0]].thumbnail.source;
             $("#player-img").attr("src", src);
