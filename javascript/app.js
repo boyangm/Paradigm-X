@@ -1,6 +1,11 @@
 window.onload = function (){
     const teamsList = $('#teamsList');
     const playerList = $('#playerList');
+    function goToResults(){
+        $('html, body').animate({
+            scrollTop: $("#results").offset().top
+        }, 1000);
+    }
     function logo(team){
         const teamLogo = [{team: "Chicago Bulls", source: 'https://teamwork-online-production.s3.amazonaws.com/uploads/e76d6979-d3ca-4c74-9a20-ee56afeffb4b.png', color: "#CE1141"},{team: "Atlanta Hawks", source: 'https://teamwork-online-production.s3.amazonaws.com/uploads/5bf18a88-84fb-49a2-843d-098dd7ff5425.png', color: "#E03A3E"},
         {team: "Boston Celtics", source: 'https://secure.img1-fg.wfcdn.com/im/63371552/resize-h600%5Ecompr-r85/2901/29013525/NBA+Boston+Celtics+Roundel+27+in.+x+27+in.+Non-Slip+Indoor+Only+Mat.jpg', color: "#007A33"},{team: "Brooklyn Nets", source: 'https://i.ebayimg.com/images/g/E9gAAOSwDm1dDAgS/s-l1600.jpg', color: "#000000"},
@@ -26,6 +31,9 @@ window.onload = function (){
               $('#logoArea').css('height','60vh');      
               $('#jumbotron').text(name.team);
               $('.navbar').css('background-color',name.color);
+              $('.input-group-text').css('background-color',name.color);
+              $('.input-group-text').css('color',"white");
+              $('.profileArea').css("transform", "translate(0,22%)");
            }
        });
 
@@ -109,6 +117,7 @@ window.onload = function (){
         $('.container').append(`<h3>${playerName}</h3>`);
         let seasonArray = ["2014", "2015", "2016", "2017", "2018"];
         timeSeriesData(seasonArray, dropDownItem);
+        goToResults();
     })
     $(document).on('scroll',function(){
 

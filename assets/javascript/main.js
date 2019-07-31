@@ -7,6 +7,9 @@ $(document).ready(function () {
         // var seasonArray = ["2018", "2017", "2016", "2015", "2014"];
         var seasonArray = ["2014", "2015", "2016", "2017", "2018"];
         timeSeriesData(seasonArray, search);
+        $('html, body').animate({
+            scrollTop: $("#results").offset().top
+        }, 1000);
 
     });
 

@@ -1,23 +1,27 @@
 body {
-    padding: 25px;
+    /* padding: 25px; */
     /* overflow: hidden; */
 }
 .navbar{
     background-color: blue;
     
 }
+.input-group-text{
+    background-color: blue;
+    color: white;
+}
 .navbar a{
     color: white;
 }
 .activity{
     position: fixed;
-    margin: -25px;
+    /* margin: -25px; */
     width: 100%;
     z-index: 100;
 
 }
 .jumbotron{
-    background-attachment: fixed !important;
+    /* background-attachment: fixed !important; */
     position: relative;
 }
 .jumbotron h1{
@@ -31,6 +35,10 @@ body {
 }
 .profileArea{
     background: transparent;
+    display: flex;
+    flex-flow: row wrap;
+    transition: transform 0.6s 0.5s;
+
 }
 .container-fluid{
     width: 30%;
