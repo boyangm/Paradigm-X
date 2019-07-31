@@ -108,6 +108,17 @@ window.onload = function (){
         let seasonArray = ["2014", "2015", "2016", "2017", "2018"];
         timeSeriesData(seasonArray, dropDownItem);
     })
+    $(document).on('scroll',function(){
 
+        var yOffset = window.pageYOffset;
+        console.log(yOffset);
+        if (yOffset >80){
+            $('.navbar').addClass('activity');
+        }
+        else{
+            $('.navbar').removeClass('activity');
+        
+        }
+    })
 
 }
