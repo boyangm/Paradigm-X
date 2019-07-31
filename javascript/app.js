@@ -23,6 +23,7 @@ window.onload = function (){
            if (name.team === team){
               $('#logoArea').css('background',`url(${name.source}) center no-repeat`);
               $('#logoArea').css('background-size','contain');
+              $('#jumbotron').text(name.team);
            }
        });
 
@@ -101,8 +102,10 @@ window.onload = function (){
     })
     playerList.on('change', () => {
         
-        var dropDownItem = $(playerList).val()
-        var seasonArray = ["2014", "2015", "2016", "2017", "2018"];
+        let dropDownItem = $(playerList).val()
+        let playerName = $('#playerList option:selected').text();
+        $('.container').append(`<h3>${playerName}</h3>`);
+        let seasonArray = ["2014", "2015", "2016", "2017", "2018"];
         timeSeriesData(seasonArray, dropDownItem);
     })
 
