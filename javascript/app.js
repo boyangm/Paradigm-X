@@ -23,6 +23,7 @@ window.onload = function (){
            if (name.team === team){
               $('#logoArea').css('background',`url(${name.source}) center no-repeat`);
               $('#logoArea').css('background-size','contain');
+              $('#logoArea').css('height','60vh');      
               $('#jumbotron').text(name.team);
            }
        });

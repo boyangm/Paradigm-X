@@ -10,13 +10,16 @@ body {
     z-index: 100;
 
 }
-/* .inActive{
-    position: relative;
-    margin: auto;
-    width: auto;
-    z-index: 100;
-
-} */
+.jumbotron{
+    background-attachment: fixed !important;
+}
+.jumbotron h1{}
+.profileArea{
+    background: transparent;
+}
+.container-fluid{
+    width: 30%;
+}
 #chart {
 
     display:grid;
