@@ -6,99 +6,148 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Page Title</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <script src='javascript/app.js'></script>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src='assets/javascript/main.js'></script>
+    <script src='javascript/app.js'></script>
     <link rel='stylesheet' type='text/css' media='screen' href='assets/css/main.css'>
 </head>
-
-<body>
-    <!-- random edit -->
-<div class ="container">
-</div>
-  <input type="text" placeholder="type name here." id="player1">
-  <input type="submit" id="submitBtn">
-  <select name="nbaTeams" id="teamsList" class="dropDown"></select>
-
-    <div>
-        <form>
-            <input id="query" type="text">
-            <input id="submit" type="submit">
-        </form>
-    </div>
-
-    <!--  -->
-    <h2 id="prof-name"></h2>
-    <div class="container-fluid">
-
-        <div class="row">
-            <div class="col-12 mt-3">
-                <div class="card">
-                    <div class="card-horizontal">
-                        <div class="img-square-wrapper">
-                            <img class="" id="player-img" alt="Player Image">
-                        </div>
-                        <div class="card-body">
-                            <table id="player-prof" class="table">
-                                <tr>
-                                    <th>Position: </th>
-                                    <td id="prof-position"></td>
-                                </tr>
-                                <tr>
-                                    <th>Team: </th>
-                                    <td id="prof-team"></td>
-                                </tr>
-                                <tr>
-                                    <th>Conference: </th>
-                                    <td id="prof-conference"></td>
-                                </tr>
-                                <tr>
-                                    <th>Division: </th>
-                                    <td id="prof-division"></td>
-                                </tr>
-                            </table>
-                        </div>
-
-                    </div>
+  
+  <body>
+      <nav class="navbar navbar-expand-lg">
+          <a class="navbar-brand" href="#">Hooper-Pedia</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Favorites</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Dropdown
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Something else here</a>
                 </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+              </li>
+            </ul>
+            
+            <form class="form-inline my-2 my-lg-0">
+              <input class="form-control mr-sm-2"  id = "query" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="submit">Search</button>
+            </form>
+          </div>
+        </nav>
+        <div class="jumbotron jumbotron-fluid" id= "logoArea">
+            <div class="container">
+              <h1 class="display-4" id="jumbotron">Welcome to Your NBA Stats Search!</h1>
+              <h3></h3>
             </div>
+          </div>
+          
+          
+          <!--  -->
+          <div class = "profileArea">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <label class="input-group-text dropDown" for="inputGroupSelect01">Teams</label>
+                </div>
+                <select class="custom-select" id="teamsList">
+              
+                </select>
+              </div>
+            <div class="input-group mb-3">
+              <select class="custom-select" id="playerList">
+              </select>
+              <div class="input-group-append">
+                <label class="input-group-text" for="inputGroupSelect02">Options</label>
+              </div>
+            </div>
+            <div class="container-fluid" id="" value="0">
+        <h2 id="prof-name"></h2>
+      
+      <div class="row">
+        <div class="col-12 mt-3">
+          <div class="card">
+            <div class="card-horizontal">
+              <div class="img-square-wrapper">
+                <img class="" id="player-img" alt="Player Image">
+              </div>
+              <div class="card-body">
+                <table id="player-prof" class="table">
+                  <tr>
+                    <th>Position: </th>
+                    <td id="prof-position"></td>
+                  </tr>
+                  <tr>
+                    <th>Team: </th>
+                    <td id="prof-team"></td>
+                  </tr>
+                  <tr>
+                    <th>Conference: </th>
+                    <td id="prof-conference"></td>
+                  </tr>
+                  <tr>
+                    <th>Division: </th>
+                    <td id="prof-division"></td>
+                  </tr>
+                </table>
+              </div>
+              
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-    </div>
-    <!--  -->
+  </div>
+</div>
+  <!--  -->
+  
+  
+  <div>
+    <h3>Season Stats</h3>
+    <p>Average per game</p>
+    <table id="season-stats" class="table table-striped">
+      <thead>
+        <th>Season</th>
+        <th>Field Goal %</th>
+        <th>3 Pt Field Goal %</th>
+        <th>Assists</th>
+        <th>Rebounds</th>
+        <th>Blocks</th>
+      </thead>
+      <tbody id="stats-body">
+        
+      </tbody>
+      <thead>
+        <th>Trends</th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </thead>
+      <tbody id="trend-body">
+      </tbody>
+    </table>
+  </div>
 
-
-    <div>
-        <h3>Season Stats</h3>
-        <p>Average per game</p>
-        <table id="season-stats" class="table table-striped">
-            <thead>
-                <th>Season</th>
-                <th>Field Goal %</th>
-                <th>3 Pt Field Goal %</th>
-                <th>Assists</th>
-                <th>Rebounds</th>
-                <th>Blocks</th>
-            </thead>
-            <tbody id="stats-body">
-
-            </tbody>
-            <thead>
-                <th>Trends</th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-            </thead>
-            <tbody id="trend-body">
-            </tbody>
-        </table>
-    </div>
+  
 </body>
 
 </html>
