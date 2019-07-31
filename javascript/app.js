@@ -90,10 +90,12 @@ let team = false;
         
     getTeamProfile();
     teamsList.on('change', () => {
+        playerList.empty();
         var dropDownItem = $(teamsList).val()
         getTeamPlayers(dropDownItem);
     })
     playerList.on('change', () => {
+        
         var dropDownItem = $(playerList).val()
         var seasonArray = ["2014", "2015", "2016", "2017", "2018"];
         timeSeriesData(seasonArray, dropDownItem);
