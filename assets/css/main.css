@@ -2,7 +2,13 @@ body {
     padding: 25px;
     /* overflow: hidden; */
 }
-
+.navbar{
+    background-color: blue;
+    
+}
+.navbar a{
+    color: white;
+}
 .activity{
     position: fixed;
     margin: -25px;
@@ -12,8 +18,17 @@ body {
 }
 .jumbotron{
     background-attachment: fixed !important;
+    position: relative;
 }
-.jumbotron h1{}
+.jumbotron h1{
+    position: absolute;
+    top:50%;
+}
+.jumbotron h3{
+    position: absolute;
+    top:75%;
+
+}
 .profileArea{
     background: transparent;
 }
