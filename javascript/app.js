@@ -114,7 +114,7 @@ window.onload = function (){
         
         let dropDownItem = $(playerList).val()
         let playerName = $('#playerList option:selected').text();
-        $('.container').append(`<h3>${playerName}</h3>`);
+        $('.container h3').text(playerName);
         let seasonArray = ["2014", "2015", "2016", "2017", "2018"];
         timeSeriesData(seasonArray, dropDownItem);
         goToResults();

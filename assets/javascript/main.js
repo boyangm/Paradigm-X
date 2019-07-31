@@ -9,7 +9,8 @@ $(document).ready(function () {
         timeSeriesData(seasonArray, search);
         $('html, body').animate({
             scrollTop: $("#results").offset().top
-        }, 1000);
+        }, 1000); 
+        
 
     });
 
@@ -35,6 +36,7 @@ function getPlayer(seasons, playerName) {
         try {
             var playerId = myJSON.data[0].id;
             console.log( myJSON.data[0]);
+            
         }
         catch (err) {
             console.log("cannot find player: " + playerName);
@@ -48,7 +50,7 @@ function getPlayer(seasons, playerName) {
             // count.push("complete");
             getStats(seasons[i], playerId, stats, seasons, count);
         }
-
+        $('.container h3').text(playerName);
     });
 
 }
@@ -73,6 +75,8 @@ function getStats(season, playerId, stats, seasons, count) {
     }).then(function (myJSON) {
 
         // makeTable(myJSON, season);
+        // console.log(myJSON);
+        
 
         if (myJSON.data.length > 0) {
 
