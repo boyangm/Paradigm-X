@@ -1,31 +1,17 @@
 window.onload = function (){
-const teamsList = $('#teamsList');
-const playerList = $('#playerList');
-let team = false;
-// function getImg(team) {
+    const teamsList = $('#teamsList');
+    const playerList = $('#playerList');
+    function logo(team){
+        let teamLogo = [{team: "Chicago Bulls", source: 'https://teamwork-online-production.s3.amazonaws.com/uploads/e76d6979-d3ca-4c74-9a20-ee56afeffb4b.png'}]
+       teamLogo.map( name => {
+           if (name.team === team){
+              $('#logoArea').css('background',`url(${name.source}) center no-repeat`);
+              $('#logoArea').css('background-size','contain');
+           }
+       });
 
-//     var query = `https://en.wikipedia.org/w/api.php?action=query&titles=${team}&format=json&prop=svg&callback=?`;
-
-//     $.ajax({
-//         type: "GET",
-//         url: query,
-//         contentType: "application/json; charset=utf-8",
-//         dataType: "json",
-//         success: function (response) {
-
-//             var page = response.query.pages;
-//             console.log(page);
-//             var pkey = Object.keys(page);
-//             console.log(pkey);
-//             // var src = page[pkey[0]].thumbnail.source;
-//             // $("#player-img").attr("src", src);
-
-//         },
-//         error: function (errorMessage) {
-//         }
-//     });
-
-// }
+            
+    }
 
     function getTeamProfile(){
         fetch(`https://free-nba.p.rapidapi.com/teams?page=0`,{
@@ -40,7 +26,7 @@ let team = false;
     }).then(teams => {
         teams.data.map(team => {
             const slot = $('<option>');
-            slot.attr('value', team.id).text(team.full_name);
+            slot.attr('value', team.id).text(team.full_name);4
             teamsList.append(slot);
             console.log(team);
         })
@@ -91,7 +77,10 @@ let team = false;
     getTeamProfile();
     teamsList.on('change', () => {
         playerList.empty();
-        var dropDownItem = $(teamsList).val()
+        let dropDownItem = $(teamsList).val()
+        let team = $("#teamsList option:selected").text();
+        console.log(team);
+        logo(team);
         getTeamPlayers(dropDownItem);
     })
     playerList.on('change', () => {
