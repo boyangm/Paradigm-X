@@ -16,6 +16,14 @@ const teamLogo = [
     {team: "Toronto Raptors", source: 'https://i.ebayimg.com/images/g/-wUAAOSwjW5dDAip/s-l1600.jpg',color: "#CE1141"},{team: "Utah Jazz", source: 'https://i.ebayimg.com/images/g/5IAAAOSwQWhdDAio/s-l1600.jpg', color :"#002B5C"},
     {team: "Washington Wizards", source: 'https://i.ebayimg.com/images/g/AS4AAOSwQjxdDAiq/s-l1600.jpg',color: "#002B5C"}
 ]
+function smoothScroll(place) {
+    $('html, body').animate({
+        scrollTop: $(".jumbotron").offset().top
+    }, 1000); 
+    $('html, body').delay(250).animate({
+        scrollTop: $(`${place}`).offset().top
+    }, 1000); 
+}
 function getGif(search){
     $.ajax({
         method: 'GET',
@@ -54,7 +62,7 @@ function logo(team){
        if (name.team === team){
           var logoArea = $('#logoArea');
           logoArea.css({
-                'background' :`url(${name.source}) center no-repeat,radial-gradient( circle,  white 45%, ${name.color} 100%)`,
+                'background' :`url(${name.source}) center no-repeat,radial-gradient( circle,  white 66%, ${name.color} 89%)`,
                 'background-size' : 'contain',
                 'height' : '90vh'
             });
@@ -63,7 +71,7 @@ function logo(team){
           $('.navbar').css('background-color',name.color);
           $('.input-group-text').css('background-color',name.color);
           $('.input-group-text').css('color',"white");
-          $('.profileArea').css("transform", "translate(0,22%)");
+        //   $('.profileArea').css("transform", "translate(0,22%)");
           $('.profileArea').css("background", `linear-gradient(0deg,  white 45%, ${name.color} 100%)`);
           getGif(name.team);
           
@@ -77,11 +85,7 @@ function logo(team){
 window.onload = function (){
     const teamsList = $('#teamsList');
     const playerList = $('#playerList');
-    function goToResults() {
-        $('html, body').animate({
-            scrollTop: $("#results").offset().top
-        }, 1000);
-    }
+    $('.jumbotron').addClass('inActivity');
 
     function getTeamProfile() {
         fetch(`https://free-nba.p.rapidapi.com/teams?page=0`, {
@@ -148,7 +152,8 @@ window.onload = function (){
 
     function teamUpdate(team){
         playerList.empty();
-        $('.carousel').css("display","none");
+        $('.carousel').addClass('inActivity');
+        $('.jumbotron').removeClass('inActivity');
         let teamValue = $("#teamsList option:selected").text();
         console.log(team);
         logo(teamValue);
@@ -158,9 +163,7 @@ window.onload = function (){
         let dropDownItem = $(teamsList).val();
         teamUpdate(dropDownItem);
       
-        $('html, body').delay(1000).animate({
-            scrollTop: $(".gifArea").offset().top
-        }, 2000); 
+        smoothScroll('.gifArea');
         getTeamPlayers(dropDownItem);
     })
     playerList.on('change', () => {
@@ -170,12 +173,12 @@ window.onload = function (){
         $('.container h3').text(playerName);
         let seasonArray = ["2014", "2015", "2016", "2017", "2018"];
         timeSeriesData(seasonArray, dropDownItem);
-        goToResults();
+        smoothScroll('#results');
     })
     $(document).on('scroll', function () {
 
         var yOffset = window.pageYOffset;
-        console.log(yOffset);
+        // console.log(yOffset);
         if (yOffset > 80) {
             $('.navbar').addClass('activity');
         }
