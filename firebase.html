@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>Firebase</title>
+
+</head>
+
+<body>
+
+    <div>
+        <form>
+
+            <input type="text" placeholder="enter name" class="form-control">
+
+        </form>
+    </div>
+
+
+    <button id="click-button">Submit</button>
+    <script src="https://code.jquery.com/jquery.js"></script>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyAK0dz6IVapH23et4pyuzHMfxp0JC4Sj0Y",
+    authDomain: "paradigm2-86f13.firebaseapp.com",
+    databaseURL: "https://paradigm2-86f13.firebaseio.com",
+    projectId: "paradigm2-86f13",
+    storageBucket: "",
+    messagingSenderId: "287677360265",
+    appId: "1:287677360265:web:37d23685f079bf01"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+        
+
+        
+        console.log(firebase.storage)
+       console.log(firebase)
+
+        var database = firebase.database();
+       
+        var playerName = "";
+
+        $("#click-button").on("click", function (event) {
+
+            event.preventDefault();
+
+            playerName = $(".form-control").val().trim();
+console.log(playerName)
+            database.ref().push({
+                playerName1: playerName,
+
+            });
+        });
+
+
+        database.ref().on("value", function (snapshot) {
+            // $("#player1").text(snapshot.val().Playername);
+
+            console.log(snapshot.val())
+
+        }, function (errorObject) {
+            console.error(errorObject)
+        });
+
+    </script>
+
+</body>
+
+</html>
