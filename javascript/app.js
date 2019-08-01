@@ -36,6 +36,7 @@ window.onload = function (){
               $('.profileArea').css("transform", "translate(0,22%)");
               $('.profileArea').css("background", `linear-gradient(0deg,  white 45%, ${name.color} 100%)`);
               
+              
            }
        });
 
@@ -104,12 +105,17 @@ window.onload = function (){
         }
         
     getTeamProfile();
-    teamsList.on('change', () => {
+
+    function teamUpdate(team){
         playerList.empty();
-        let dropDownItem = $(teamsList).val()
-        let team = $("#teamsList option:selected").text();
+        let teamValue = $("#teamsList option:selected").text();
         console.log(team);
-        logo(team);
+        logo(teamValue);
+    }
+
+    teamsList.on('change', () => {
+        let dropDownItem = $(teamsList).val();
+        teamUpdate(dropDownItem);
         getTeamPlayers(dropDownItem);
     })
     playerList.on('change', () => {
