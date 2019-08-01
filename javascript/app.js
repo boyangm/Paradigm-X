@@ -89,6 +89,7 @@ window.onload = function (){
                 'X-RapidAPI-Host': 'free-nba.p.rapidapi.com',
                 'X-RapidAPI-Key': 'c6b4ed3e73msh1122d2e76cde6c7p164783jsn9dcad33173e1'
             }
+
         })
             .then(res => {
                 return res.json();
@@ -97,7 +98,7 @@ window.onload = function (){
                     const slot = $('<option>');
                     slot.attr('value', team.id).text(team.full_name);
                     teamsList.append(slot);
-                    console.log(team);
+                    // console.log(team);
                 })
 
                 // console.log(data.api.players);   
@@ -174,7 +175,7 @@ window.onload = function (){
     $(document).on('scroll', function () {
 
         var yOffset = window.pageYOffset;
-        console.log(yOffset);
+        // console.log(yOffset);
         if (yOffset > 80) {
             $('.navbar').addClass('activity');
         }

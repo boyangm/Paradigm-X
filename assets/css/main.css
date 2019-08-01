@@ -82,6 +82,7 @@ body {
 }
 
 #season-stats {
+    margin-top: 50px;
     border: 1px silver solid;
 }
 
@@ -127,7 +128,12 @@ div.player-info-div>div {
 
 }
 
-div.player-info-div div:hover {
+.card {
+    background: transparent;
+    border: none;
+}
+
+.card-horizontal:hover {
     
     background-color: silver;
   
