@@ -56,7 +56,7 @@ function logo(team){
           logoArea.css({
                 'background' :`url(${name.source}) center no-repeat,radial-gradient( circle,  white 45%, ${name.color} 100%)`,
                 'background-size' : 'contain',
-                'height' : '60vh'
+                'height' : '90vh'
             });
    
           $('#jumbotron').text(name.team);
@@ -164,7 +164,7 @@ window.onload = function (){
         getTeamPlayers(dropDownItem);
     })
     playerList.on('change', () => {
-
+        $('.carousel').css("display","none");
         let dropDownItem = $(playerList).val()
         let playerName = $('#playerList option:selected').text();
         $('.container h3').text(playerName);
