@@ -130,16 +130,55 @@
 
             </div>
           </div>
-        </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        </li>
+      </ul>
+
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" id="query" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+  <div class="jumbotron jumbotron-fluid" id="logoArea">
+    <div class="container">
+      <h1 class="display-4" id="jumbotron">Welcome to Your NBA Stats Search!</h1>
+      <h3></h3>
+    </div>
+  </div>
+
+  <!--  -->
+  <div class="profileArea">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text dropDown" for="inputGroupSelect01">Teams</label>
+      </div>
+      <select class="custom-select" id="teamsList">
+
+      </select>
+    </div>
+    <div class="input-group mb-3">
+      <select class="custom-select" id="playerList">
+      </select>
+      <div class="input-group-append">
+        <label class="input-group-text" for="inputGroupSelect02">Options</label>
       </div>
     </div>
+
+    <div class="player-info-div">
+
+    </div>
+
+  </div>
   </div>
   </div>
   <!--  -->
 
 
   <div>
-    <h3>Season Stats</h3>
+    <h3 id="season-stats-h3">Season Stats</h3>
     <p>Average per game</p>
     <table id="season-stats" class="table table-striped">
       <thead>
@@ -166,7 +205,45 @@
     </table>
   </div>
 
+<!-- Template for player profile -->
+<section id="player-template" style="display: none;">
+  <div class="container-fluid player-click-ref" id="player-info" value="0">
+    <h2 id="prof-name"></h2>
+    <button id="save-player" data-player-name="">Favorite</button>
+    <div class="row">
+      <div class="col-12 mt-3">
+        <div class="card">
+          <div class="card-horizontal">
+            <div class="img-square-wrapper">
+              <img class="" id="player-img" alt="Player Image">
+            </div>
+            <div class="card-body">
+              <table id="player-prof" class="table">
+                <tr>
+                  <th>Position: </th>
+                  <td id="prof-position"></td>
+                </tr>
+                <tr>
+                  <th>Team: </th>
+                  <td id="prof-team"></td>
+                </tr>
+                <tr>
+                  <th>Conference: </th>
+                  <td id="prof-conference"></td>
+                </tr>
+                <tr>
+                  <th>Division: </th>
+                  <td id="prof-division"></td>
+                </tr>
+              </table>
+            </div>
 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 </body>
 
 </html>
