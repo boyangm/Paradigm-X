@@ -110,5 +110,13 @@ h4 {
 #stats-body>tr>td, #trend-body>#trend-stats>td {
     padding-left: 50px;
 }
-
+.scrolling-wrapper {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+  
+    .card {
+      display: inline-block;
+    }
+  }
 
