@@ -55,7 +55,6 @@ window.onload = function (){
             const slot = $('<option>');
             slot.attr('value', team.id).text(team.full_name);
             teamsList.append(slot);
-            console.log(team);
         })
 
         // console.log(data.api.players);   
@@ -122,7 +121,7 @@ window.onload = function (){
     $(document).on('scroll',function(){
 
         var yOffset = window.pageYOffset;
-        console.log(yOffset);
+        // console.log(yOffset);
         if (yOffset >80){
             $('.navbar').addClass('activity');
         }

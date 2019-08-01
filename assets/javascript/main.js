@@ -41,6 +41,7 @@ function getPlayer(seasons, playerName) {
         catch (err) {
             console.log("cannot find player: " + playerName);
         }
+        cloneProfile();
         var name = myJSON.data[0].first_name + "_" + myJSON.data[0].last_name;
         getImg(name);
         populateProfile(myJSON);
@@ -456,3 +457,10 @@ function getImg(playerName) {
 }
 
 
+function cloneProfile() {
+
+    var player = $("#player-info").clone()[0];
+
+    $(".profileArea").prepend(player);
+
+}
