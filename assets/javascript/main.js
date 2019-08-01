@@ -9,8 +9,8 @@ $(document).ready(function () {
         timeSeriesData(seasonArray, search);
         $('html, body').animate({
             scrollTop: $("#results").offset().top
-        }, 1000); 
-        
+        }, 1000);
+
 
     });
 
@@ -35,8 +35,8 @@ function getPlayer(seasons, playerName) {
     }).then(function (myJSON) {
         try {
             var playerId = myJSON.data[0].id;
-            console.log( myJSON.data[0]);
-            
+            console.log(myJSON.data[0]);
+
         }
         catch (err) {
             console.log("cannot find player: " + playerName);
@@ -45,7 +45,7 @@ function getPlayer(seasons, playerName) {
         getImg(name);
         populateProfile(myJSON);
         var stats = {};
-        let count = {count: 0};
+        let count = { count: 0 };
         for (var i = 0; i < seasons.length; i++) {
             // count.push("complete");
             getStats(seasons[i], playerId, stats, seasons, count);
@@ -76,7 +76,7 @@ function getStats(season, playerId, stats, seasons, count) {
 
         // makeTable(myJSON, season);
         // console.log(myJSON);
-        
+
 
         if (myJSON.data.length > 0) {
 
@@ -94,7 +94,7 @@ function getStats(season, playerId, stats, seasons, count) {
 
         var keys = Object.keys(stats);
 
-        count.count ++;
+        count.count++;
 
         if (count.count === seasons.length) {
 
@@ -103,7 +103,7 @@ function getStats(season, playerId, stats, seasons, count) {
             chart(stats, trends);
 
         }
-    
+
     });
 
 }
@@ -453,6 +453,20 @@ function getImg(playerName) {
         }
     });
 
+}
+var slideIndex = 0;
+carousel();
+
+function carousel() {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+    }
+    slideIndex++;
+    if (slideIndex > x.length) { slideIndex = 1 }
+    x[slideIndex - 1].style.display = "block";
+    setTimeout(carousel, 3000); // Change image every 5 seconds
 }
 
 
