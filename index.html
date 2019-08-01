@@ -4,7 +4,7 @@
 <head>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-  <title>Page Title</title>
+  <title>Hoop-Pedia</title>
   <meta name='viewport' content='width=device-width, initial-scale=1'>
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -56,6 +56,112 @@
       </form>
     </div>
   </nav>
+  <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img class="d-block w-100"
+          src="https://wallpaperbasketball.com/wp-content/uploads/2018/05/NBA-For-Desktop-Wallpaper.jpg"
+          alt="First slide">
+      </div>
+      <div class="carousel-item">
+        <img class="d-block w-100" src="https://studybreaks.com/wp-content/uploads/2017/07/1423710380375.jpg"
+          alt="Second slide">
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="jumbotron jumbotron-fluid" id="logoArea">
+    <div class="container">
+      <h1 class="display-4" id="jumbotron"></h1>
+    </div>
+  </div>
+  <div class ="gifArea"></div>
+          
+  <!--  -->
+  <div class = "profileArea">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text dropDown" for="inputGroupSelect01">Teams</label>
+        </div>
+        <select class="custom-select" name= "teams" id="teamsList">
+      
+        </select>
+      </div>
+    <div class="input-group mb-3">
+      <select class="custom-select" id="playerList">
+      </select>
+      <div class="input-group-append">
+        <label class="input-group-text" for="inputGroupSelect02">Options</label>
+      </div>
+    </div>
+    <div class="container-fluid" id="results" value="0">
+<h2 id="prof-name"></h2>
+
+
+  <!--  -->
+  <div class="profileArea">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text dropDown" for="inputGroupSelect01">Teams</label>
+      </div>
+      <select class="custom-select" id="teamsList">
+
+      </select>
+    </div>
+    <div class="input-group mb-3">
+      <select class="custom-select" id="playerList">
+      </select>
+      <div class="input-group-append">
+        <label class="input-group-text" for="inputGroupSelect02">Options</label>
+      </div>
+    </div>
+    <div class="container-fluid" id="" value="0">
+      <h2 id="prof-name"></h2>
+
+      <div class="row">
+        <div class="col-12 mt-3">
+          <div class="card">
+            <div class="card-horizontal">
+              <div class="img-square-wrapper">
+                <img class="" id="player-img" alt="Player Image">
+              </div>
+              <div class="card-body">
+                <table id="player-prof" class="table">
+                  <tr>
+                    <th>Position: </th>
+                    <td id="prof-position"></td>
+                  </tr>
+                  <tr>
+                    <th>Team: </th>
+                    <td id="prof-team"></td>
+                  </tr>
+                  <tr>
+                    <th>Conference: </th>
+                    <td id="prof-conference"></td>
+                  </tr>
+                  <tr>
+                    <th>Division: </th>
+                    <td id="prof-division"></td>
+                  </tr>
+                </table>
+              </div>
+
+            </div>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        </li>
+      </ul>
+
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" id="query" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="submit">Search</button>
+      </form>
+    </div>
+  </nav>
   <div class="jumbotron jumbotron-fluid" id="logoArea">
     <div class="container">
       <h1 class="display-4" id="jumbotron">Welcome to Your NBA Stats Search!</h1>
@@ -87,7 +193,10 @@
 
   </div>
   </div>
+  </div>
   <!--  -->
+
+
   <div>
     <h3 id="season-stats-h3">Season Stats</h3>
     <p>Average per game</p>
