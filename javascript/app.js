@@ -30,6 +30,7 @@ function getGif(search){
     }
     function giphy(data){
         const gifArea = $('.gifArea');
+        gifArea.empty();
         data.map(item => {
         let source= item.images.original.url;
     
@@ -76,73 +77,73 @@ function logo(team){
 window.onload = function (){
     const teamsList = $('#teamsList');
     const playerList = $('#playerList');
-    function goToResults(){
+    function goToResults() {
         $('html, body').animate({
             scrollTop: $("#results").offset().top
         }, 1000);
     }
 
-    function getTeamProfile(){
-        fetch(`https://free-nba.p.rapidapi.com/teams?page=0`,{
+    function getTeamProfile() {
+        fetch(`https://free-nba.p.rapidapi.com/teams?page=0`, {
             headers: {
-                'X-RapidAPI-Host':'free-nba.p.rapidapi.com',
+                'X-RapidAPI-Host': 'free-nba.p.rapidapi.com',
                 'X-RapidAPI-Key': 'c6b4ed3e73msh1122d2e76cde6c7p164783jsn9dcad33173e1'
             }
-        
-        })
-    .then(res => {
-        return res.json();
-    }).then(teams => {
-        teams.data.map(team => {
-            const slot = $('<option>');
-            slot.attr('value', team.id).text(team.full_name);
-            teamsList.append(slot);
-            console.log(team);
-        })
 
-        // console.log(data.api.players);   
-    })
+        })
+            .then(res => {
+                return res.json();
+            }).then(teams => {
+                teams.data.map(team => {
+                    const slot = $('<option>');
+                    slot.attr('value', team.id).text(team.full_name);
+                    teamsList.append(slot);
+                    console.log(team);
+                })
+
+                // console.log(data.api.players);   
+            })
     }
 
-    
 
 
-        
+
+
 
     /**
      * 
      *gets the players from the team ID
      * @param {string} teamId
      */
-    function getTeamPlayers(teamId){
-        fetch(`https://api-nba-v1.p.rapidapi.com/players/teamId/${teamId}`,{
+    function getTeamPlayers(teamId) {
+        fetch(`https://api-nba-v1.p.rapidapi.com/players/teamId/${teamId}`, {
             headers: {
-                'X-RapidAPI-Host':'api-nba-v1.p.rapidapi.com',
+                'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com',
                 'X-RapidAPI-Key': 'c6b4ed3e73msh1122d2e76cde6c7p164783jsn9dcad33173e1'
             }
-        
+
         })
-        .then(res => {
-            return res.json();
-        }).then(data=> {
-            try{
-                
-         
-            console.log(data.api.players);
-            let players = data.api.players;
-            players.map(player =>{
-                const slot = $('<option>');
-                slot.attr('idNum', player.playerID ).attr('teamId', player.teamId).text(`${player.firstName} ${player.lastName}`);
-                playerList.append(slot);
-                console.log(player);
+            .then(res => {
+                return res.json();
+            }).then(data => {
+                try {
+
+
+                    console.log(data.api.players);
+                    let players = data.api.players;
+                    players.map(player => {
+                        const slot = $('<option>');
+                        slot.attr('idNum', player.playerID).attr('teamId', player.teamId).text(`${player.firstName} ${player.lastName}`);
+                        playerList.append(slot);
+                        console.log(player);
+                    })
+                } catch (error) {
+                    console.error(Error.message);
+                }
+                console.log(data.api.players);
             })
-            }catch (error){
-                console.error(Error.message);
-            }
-            console.log(data.api.players);   
-        })
-        }
-        
+    }
+
     getTeamProfile();
 
     function teamUpdate(team){
@@ -163,7 +164,7 @@ window.onload = function (){
         getTeamPlayers(dropDownItem);
     })
     playerList.on('change', () => {
-        
+
         let dropDownItem = $(playerList).val()
         let playerName = $('#playerList option:selected').text();
         $('.container h3').text(playerName);
@@ -171,24 +172,30 @@ window.onload = function (){
         timeSeriesData(seasonArray, dropDownItem);
         goToResults();
     })
-    $(document).on('scroll',function(){
+    $(document).on('scroll', function () {
 
         var yOffset = window.pageYOffset;
         console.log(yOffset);
-        if (yOffset >80){
+        if (yOffset > 80) {
             $('.navbar').addClass('activity');
         }
-        else{
+        else {
             $('.navbar').removeClass('activity');
-        
+
         }
     })
- 
-     $('<button>').attr(data-playerName, name)
-    
-    $('.carousel').carousel({
-        interval: 2000
-      })
-      
+    var slideIndex = 0;
+    carousel();
 
+    function carousel() {
+      var i;
+      var x = document.getElementsByClassName("carousel-item");
+      for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+      }
+      slideIndex++;
+      if (slideIndex > x.length) { slideIndex = 1 }
+      x[slideIndex - 1].style.display = "block";
+      setTimeout(carousel, 5000); // Change image every 5 seconds
+    }
 }

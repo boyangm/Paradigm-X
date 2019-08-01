@@ -2,15 +2,17 @@ body {
     /* padding: 25px; */
     /* overflow: hidden; */
 }
-.navbar{
+
+.navbar {
     background-color: blue;
-    
 }
-.input-group-text{
+
+.input-group-text {
     background-color: blue;
     color: white;
 }
-.navbar a{
+
+.navbar a {
     color: white;
 }
 .gifArea{
@@ -27,63 +29,56 @@ body {
     /* margin: -25px; */
     width: 100%;
     z-index: 100;
-
 }
-.jumbotron{
+
+.jumbotron {
     /* background-attachment: fixed !important; */
     position: relative;
 }
-.jumbotron h1{
-    position: absolute;
-    top:50%;
-}
-.jumbotron h3{
-    position: absolute;
-    top:75%;
 
+.jumbotron h1 {
+    position: absolute;
+    top: 50%;
 }
-.profileArea{
+
+.jumbotron h3 {
+    position: absolute;
+    top: 75%;
+}
+
+.profileArea {
     background: transparent;
     display: flex;
     flex-flow: row wrap;
     transition: transform 0.6s 0.5s;
-
 }
-.container-fluid{
+
+.container-fluid {
     width: 30%;
 }
+
 #chart {
-
-    display:grid;
+    display: grid;
     grid-template-columns: 16vw 16vw 16vw 16vw 16vw 16vw;
-
 }
 
 .chart-div {
-
     height: 250px;
-
 }
 
 #chart-row {
-
     height: 0;
     background: transparent;
     padding: 0;
-
 }
 
 #chart-row td {
-
     padding: 0;
     height: 0;
-
 }
 
 .table {
-
     margin-bottom: 0;
-
 }
 
 #season-stats {
@@ -95,9 +90,7 @@ table {
 }
 
 #player-prof {
-
     width: 40%;
-    
 }
 
 .card-horizontal {
@@ -119,5 +112,3 @@ h4 {
 #stats-body>tr>td, #trend-body>#trend-stats>td {
     padding-left: 50px;
 }
-
-
