@@ -79,12 +79,14 @@ function getPlayer(seasons, playerName) {
         }
         // console.log($("h2").text());
         var name = myJSON.data[0].first_name + "_" + myJSON.data[0].last_name;
-        var teamName = myJSON.data[0].team.id 
+        var teamName = myJSON.data[0].team.id;
+        console.log("about to call clone!!!!");
         bridge(teamName);
         getImg(name);
         populateProfile(myJSON);
         var stats = {};
         let count = { count: 0 };
+        cloneProfile(playerId, seasons, name);
         for (var i = 0; i < seasons.length; i++) {
             // count.push("complete");
             getStats(seasons[i], playerId, stats, seasons, count);
@@ -106,6 +108,8 @@ function bridge(teamName){
  * @param {string} date 'YYYY-MM-DD'
  */
 function getStats(season, playerId, stats, seasons, count) {
+
+    
 
     // console.log(playerId);
     fetch(`https://free-nba.p.rapidapi.com/stats?page=1&per_page=100&seasons[]=${season}&player_ids[]=${playerId}`, {
@@ -138,6 +142,8 @@ function getStats(season, playerId, stats, seasons, count) {
         var keys = Object.keys(stats);
 
         count.count++;
+        console.log(playerId);
+        console.log(count.count === seasons.length);
 
         if (count.count === seasons.length) {
 
@@ -518,12 +524,16 @@ function carousel() {
 
 
 function cloneProfile(playerId, seasons, playerName) {
+    
+    
 
     var player = $("#player-info").clone()[0];
 
     $(".player-info-div").prepend(player);
 
     $("#season-stats-h3").text(playerName + " Season Stats");
+
+    console.log(player);
 
     $(".card").click(function() {
 
@@ -544,5 +554,7 @@ function cloneProfile(playerId, seasons, playerName) {
         }
 
     });
+
+    console.log("cloned!");
 
 }
