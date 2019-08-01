@@ -111,4 +111,17 @@ h4 {
     padding-left: 50px;
 }
 
+div.player-info-div {
+
+    overflow: auto;
+    white-space: nowrap;
+
+}
+
+div.player-info-div>div {
+    
+  display: inline-block;
+  margin: 50px;
+
+}
 

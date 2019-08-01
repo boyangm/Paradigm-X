@@ -461,6 +461,6 @@ function cloneProfile() {
 
     var player = $("#player-info").clone()[0];
 
-    $(".profileArea").prepend(player);
+    $(".player-info-div").prepend(player);
 
 }
