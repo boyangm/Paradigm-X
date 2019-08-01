@@ -112,3 +112,24 @@ h4 {
 #stats-body>tr>td, #trend-body>#trend-stats>td {
     padding-left: 50px;
 }
+
+div.player-info-div {
+
+    overflow: auto;
+    white-space: nowrap;
+
+}
+
+div.player-info-div>div {
+    
+  display: inline-block;
+  margin: 50px;
+
+}
+
+div.player-info-div div:hover {
+    
+    background-color: silver;
+  
+  }
+

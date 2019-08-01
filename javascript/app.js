@@ -89,7 +89,6 @@ window.onload = function (){
                 'X-RapidAPI-Host': 'free-nba.p.rapidapi.com',
                 'X-RapidAPI-Key': 'c6b4ed3e73msh1122d2e76cde6c7p164783jsn9dcad33173e1'
             }
-
         })
             .then(res => {
                 return res.json();
