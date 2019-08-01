@@ -7,7 +7,7 @@ window.onload = function (){
         }, 1000);
     }
     function logo(team){
-        const teamLogo = [{team: "Chicago Bulls", source: 'https://teamwork-online-production.s3.amazonaws.com/uploads/e76d6979-d3ca-4c74-9a20-ee56afeffb4b.png', color: "#CE1141"},{team: "Atlanta Hawks", source: 'https://teamwork-online-production.s3.amazonaws.com/uploads/5bf18a88-84fb-49a2-843d-098dd7ff5425.png', color: "#E03A3E"},
+        const teamLogo = [{team: "Chicago Bulls", source: 'https://teamwork-online-production.s3.amazonaws.com/uploads/e76d6979-d3ca-4c74-9a20-ee56afeffb4b.png',  color: "#CE1141"},{team: "Atlanta Hawks", source: 'https://teamwork-online-production.s3.amazonaws.com/uploads/5bf18a88-84fb-49a2-843d-098dd7ff5425.png', color: "#E03A3E"},
         {team: "Boston Celtics", source: 'https://secure.img1-fg.wfcdn.com/im/63371552/resize-h600%5Ecompr-r85/2901/29013525/NBA+Boston+Celtics+Roundel+27+in.+x+27+in.+Non-Slip+Indoor+Only+Mat.jpg', color: "#007A33"},{team: "Brooklyn Nets", source: 'https://i.ebayimg.com/images/g/E9gAAOSwDm1dDAgS/s-l1600.jpg', color: "#000000"},
         {team: "Charlotte Hornets", source: 'https://i.ebayimg.com/images/g/u48AAOSwNCtdDAgy/s-l1600.jpg', color: "#1D1160"},{team: "Cleveland Cavaliers", source: 'https://cdn.shopify.com/s/files/1/0993/8094/products/Cleveland_Cavaliers_3D_Fan_Foam_Logo_Sign_HD_Pro_Image_Sports_1024x1024.jpg?v=1504892006',color: "#6F263D"},
         {team: "Dallas Mavericks", source: 'https://i.ebayimg.com/images/g/DkYAAOSwv7BdDAhI/s-l1600.jpg', color:"#00538C"},{team: "Denver Nuggets", source: 'https://secure.img2-fg.wfcdn.com/im/14311203/resize-h600%5Ecompr-r85/2901/29013566/NBA+Denver+Nuggets+Roundel+27+in.+x+27+in.+Non-Slip+Mat.jpg', color: "#0E2240"},
@@ -26,7 +26,7 @@ window.onload = function (){
     ]
        teamLogo.map( name => {
            if (name.team === team){
-              $('#logoArea').css('background',`url(${name.source}) center no-repeat`);
+              $('#logoArea').css('background',`url(${name.source}) center no-repeat,radial-gradient( circle,  white 45%, ${name.color} 100%)`);
               $('#logoArea').css('background-size','contain');
               $('#logoArea').css('height','60vh');      
               $('#jumbotron').text(name.team);
@@ -34,6 +34,8 @@ window.onload = function (){
               $('.input-group-text').css('background-color',name.color);
               $('.input-group-text').css('color',"white");
               $('.profileArea').css("transform", "translate(0,22%)");
+              $('.profileArea').css("background", `linear-gradient(0deg,  white 45%, ${name.color} 100%)`);
+              
            }
        });
 
