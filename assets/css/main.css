@@ -13,6 +13,15 @@ body {
 .navbar a{
     color: white;
 }
+.gifArea{
+    width: 100%;
+}
+.gifArea img{
+    width: 100%;
+    height: 350px;
+    padding: 0 ;
+    margin: 0;
+}
 .activity{
     position: fixed;
     /* margin: -25px; */
