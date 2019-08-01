@@ -10,8 +10,7 @@ $(document).ready(function () {
         $('html, body').animate({
             scrollTop: $("#results").offset().top
         }, 1000); 
-        
-
+    
     });
 
 });
@@ -41,8 +40,9 @@ function getPlayer(seasons, playerName) {
         catch (err) {
             console.log("cannot find player: " + playerName);
         }
-        cloneProfile();
+        // console.log($("h2").text());
         var name = myJSON.data[0].first_name + "_" + myJSON.data[0].last_name;
+        cloneProfile(playerId, seasons, name.replace("_", " "));
         getImg(name);
         populateProfile(myJSON);
         var stats = {};
@@ -76,7 +76,7 @@ function getStats(season, playerId, stats, seasons, count) {
     }).then(function (myJSON) {
 
         // makeTable(myJSON, season);
-        // console.log(myJSON);
+        console.log(myJSON);
         
 
         if (myJSON.data.length > 0) {
@@ -134,6 +134,10 @@ function timeSeriesData(seasons, playerName) {
  * @param {string} season "YYYY" year format
  */
 function makeTable(seasonStats) {
+
+    // console.log("----------");
+    // console.log(seasonStats);
+    // console.log("----------");
 
     var table = $("#stats-body");
 
@@ -235,6 +239,7 @@ function populateProfile(playerJSON) {
     $("#prof-team").text(profile.team.name);
     $("#prof-conference").text(profile.team.conference);
     $("#prof-division").text(profile.team.division);
+    $("#save-player").attr("data-player-name", name);
 
 }
 
@@ -444,7 +449,6 @@ function getImg(playerName) {
         success: function (response) {
 
             var page = response.query.pages;
-            console.log(page);
             var pkey = Object.keys(page);
             var src = page[pkey[0]].thumbnail.source;
             $("#player-img").attr("src", src);
@@ -457,10 +461,32 @@ function getImg(playerName) {
 }
 
 
-function cloneProfile() {
+function cloneProfile(playerId, seasons, playerName) {
 
     var player = $("#player-info").clone()[0];
 
     $(".player-info-div").prepend(player);
+
+    $("#season-stats-h3").text(playerName + " Season Stats");
+
+    $(".card").click(function() {
+
+        var table = $("#stats-body");
+
+        table.empty();
+
+        // console.log($(this).html());
+
+        var stats = {};
+        let count = {count: 0};
+
+        $("#season-stats-h3").text(playerName + " Season Stats");
+
+        for (var i = 0; i < seasons.length; i++) {
+            // count.push("complete");
+            getStats(seasons[i], playerId, stats, seasons, count);
+        }
+
+    });
 
 }

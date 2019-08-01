@@ -125,3 +125,9 @@ div.player-info-div>div {
 
 }
 
+div.player-info-div div:hover {
+    
+    background-color: silver;
+  
+  }
+
