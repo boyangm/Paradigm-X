@@ -152,3 +152,8 @@ div.player-info-div>div {
     padding-top: 5%;
     padding-right: 10%;
 }
+.save-player{
+background: transparent;
+border: none;
+color: white;
+}

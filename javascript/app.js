@@ -16,6 +16,25 @@ const teamLogo = [
     {team: "Toronto Raptors", source: 'https://i.ebayimg.com/images/g/-wUAAOSwjW5dDAip/s-l1600.jpg',color: "#CE1141"},{team: "Utah Jazz", source: 'https://i.ebayimg.com/images/g/5IAAAOSwQWhdDAio/s-l1600.jpg', color :"#002B5C"},
     {team: "Washington Wizards", source: 'https://i.ebayimg.com/images/g/AS4AAOSwQjxdDAiq/s-l1600.jpg',color: "#002B5C"}
 ]
+function color (color){
+    $('.navbar').css('background-color',color);
+          $('.input-group-text').css('background-color',color);
+          $('.input-group-text').css('color',"white");
+        //   $('.profileArea').css("transform", "translate(0,22%)");
+          $('#results').css("background", `linear-gradient(0deg,  white 45%, ${color} 100%)`);
+}
+function reset() {
+    const carousel = $('.carousel');
+    $('.jumbotron').addClass('inActivity');
+    $('.player-info-div').empty();
+    carousel.removeClass('inActivity');
+    carousel.css('display','block');
+    color('blue');
+    $('.gifArea').empty();
+    smoothScroll('#top');
+
+
+}
 function smoothScroll(place) {
     $('html, body').animate({
         scrollTop: $(".jumbotron").offset().top
@@ -63,13 +82,7 @@ function logo(team){
                 'background-size' : 'contain',
                 'height' : '90vh'
             });
-   
-          $('#jumbotron').text(name.team);
-          $('.navbar').css('background-color',name.color);
-          $('.input-group-text').css('background-color',name.color);
-          $('.input-group-text').css('color',"white");
-        //   $('.profileArea').css("transform", "translate(0,22%)");
-          $('#results').css("background", `linear-gradient(0deg,  white 45%, ${name.color} 100%)`);
+          color(name.color);
           getGif(name.team);
           
           
@@ -148,7 +161,7 @@ window.onload = function (){
     getTeamProfile();
 
     function teamUpdate(team){
-        playerList.empty();
+       
         $('.carousel').addClass('inActivity');
         $('.jumbotron').removeClass('inActivity');
         let teamValue = $("#teamsList option:selected").text();
@@ -157,6 +170,7 @@ window.onload = function (){
     }
 
     teamsList.on('change', () => {
+        playerList.empty();
         let dropDownItem = $(teamsList).val();
         teamUpdate(dropDownItem);
       
@@ -165,10 +179,10 @@ window.onload = function (){
     })
     playerList.on('change', () => {
         $('.carousel').css("display","none");
+        let dropDownItemTeam = $(teamsList).val();
         let dropDownItem = $(playerList).val()
-        let playerName = $('#playerList option:selected').text();
-        $('.container h3').text(playerName);
         let seasonArray = ["2014", "2015", "2016", "2017", "2018"];
+        teamUpdate(dropDownItemTeam);
         timeSeriesData(seasonArray, dropDownItem);
         smoothScroll('#results');
     })
@@ -184,6 +198,9 @@ window.onload = function (){
             navbar.removeClass('activity');
 
         }
+    })
+    $('#home').on('click', () =>{
+        reset();
     })
     var slideIndex = 0;
     carousel();

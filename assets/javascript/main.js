@@ -541,7 +541,7 @@ function cloneProfile(playerId, seasons, playerName) {
     
     var player=$(`<div class="container-fluid player-click-ref" id="player-info" value="0">
       <h2 id="prof-name${nameId}"></h2>
-      <button id="save-player" data-player-name="">Favorite</button>
+      <button class="save-player" data-player-name=""><i class="fas fa-heart"></i></button>
       <div class="row">
         <div class="col-12 mt-3">
           <div class="card">
