@@ -9,7 +9,7 @@ body {
 
 .input-group-text {
     background-color: blue;
-    color: white;
+    color: white; 
 }
 
 .navbar a {
@@ -148,4 +148,34 @@ div.player-info-div>div {
 #results{
     width: 100%;
     background: linear-gradient(0deg,  white 45%, blue 100%)
+}
+
+
+/* Header  */
+.carousel-inner {
+    max-height: 568px;
+    background: black;
+}
+.w-100 {
+     width: 60% !important;
+    margin: 0 auto;
+    max-height: 568px; 
+ }
+
+ team logo 
+
+ #logoArea {
+    height: unset !important;
+    padding-top: 30% !important;
+}
+.gifDiv {
+    position: relative;
+    width: 100%;
+    background: black;
+}
+.gifArea img {
+    width: 50%;
+    padding: 0;
+    margin: 0 auto;
+    display: block;
 }
