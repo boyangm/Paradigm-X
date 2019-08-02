@@ -69,7 +69,7 @@ function getPlayer(seasons, playerName) {
     }).then(function (myJSON) {
         try {
             var playerId = myJSON.data[0].id;
-            console.log(myJSON.data[0]);
+            // console.log(myJSON.data[0]);
 
         }
         catch (err) {
@@ -77,17 +77,19 @@ function getPlayer(seasons, playerName) {
         }
         // console.log($("h2").text());
         var name = myJSON.data[0].first_name + "_" + myJSON.data[0].last_name;
-        var teamName = myJSON.data[0].team.id 
+        var teamName = myJSON.data[0].team.id;
+        // console.log("about to call clone!!!!");
         bridge(teamName);
         getImg(name);
-        populateProfile(myJSON);
         var stats = {};
         let count = { count: 0 };
+        cloneProfile(playerId, seasons, name);
+        populateProfile(myJSON);
         for (var i = 0; i < seasons.length; i++) {
             // count.push("complete");
             getStats(seasons[i], playerId, stats, seasons, count);
         }
-        $('.container h3').text(playerName);
+        // $('.container h3').text(playerName);
     });
 
 }
@@ -104,6 +106,8 @@ function bridge(teamName){
  * @param {string} date 'YYYY-MM-DD'
  */
 function getStats(season, playerId, stats, seasons, count) {
+
+    
 
     // console.log(playerId);
     fetch(`https://free-nba.p.rapidapi.com/stats?page=1&per_page=100&seasons[]=${season}&player_ids[]=${playerId}`, {
@@ -136,7 +140,9 @@ function getStats(season, playerId, stats, seasons, count) {
         var keys = Object.keys(stats);
 
         count.count++;
-
+        // console.log(playerId);
+        // console.log(count.count === seasons.length);
+        // console.log(count.count);
         if (count.count === seasons.length) {
 
             makeTable(stats);
@@ -264,22 +270,30 @@ function averageInt(statsJSON, statId) {
  */
 function populateProfile(playerJSON) {
 
-    $("#prof-name").empty();
-    $("#prof-position").empty();
-    $("#prof-team").empty();
-    $("#prof-conference").empty();
-    $("#prof-division").empty();
+    // $("#prof-name").empty();
+    // $("#prof-position").empty();
+    // $("#prof-team").empty();
+    // $("#prof-conference").empty();
+    // $("#prof-division").empty();
 
     var profile = playerJSON.data[0];
 
     var name = profile.first_name + " " + profile.last_name;
 
-    $("#prof-name").text(name);
-    $("#prof-position").text(profile.position);
-    $("#prof-team").text(profile.team.name);
-    $("#prof-conference").text(profile.team.conference);
-    $("#prof-division").text(profile.team.division);
-    $("#save-player").attr("data-player-name", name);
+    var nameId = "-"+name.replace(" ","_");
+
+    // $("#prof-name").attr("id", "prof-name" + nameId);
+    // $("#prof-position").attr("id", "prof-position" + nameId);
+    // $("#prof-team").attr("id", "prof-team" + nameId);
+    // $("#prof-conference").attr("id", "prof-conference" + nameId);
+    // $("#prof-division").attr("id", "prof-division" + nameId);
+    // $("#save-player").attr("data-player-name", nameId);
+
+    $("#prof-name" + nameId).text(name);
+    $("#prof-position" + nameId).text(profile.position);
+    $("#prof-team" + nameId).text(profile.team.name);
+    $("#prof-conference" + nameId).text(profile.team.conference);
+    $("#prof-division" + nameId).text(profile.team.division);
 
 }
 
@@ -516,14 +530,64 @@ function carousel() {
 
 
 function cloneProfile(playerId, seasons, playerName) {
+    
+    // var player = $("#player-info").clone()[0];
 
-    var player = $("#player-info").clone()[0];
+    console.log(playerName);
+
+    var nameId = "-"+playerName;
+
+    // ${nameId}
+    
+    var player=$(`<div class="container-fluid player-click-ref" id="player-info" value="0">
+      <h2 id="prof-name${nameId}"></h2>
+      <button id="save-player" data-player-name="">Favorite</button>
+      <div class="row">
+        <div class="col-12 mt-3">
+          <div class="card">
+            <div class="card-horizontal">
+              <div class="img-square-wrapper">
+                <img class="" id="player-img" alt="Player Image">
+              </div>
+              <div class="card-body">
+                <table id="player-prof" class="table">
+                  <tr>
+                    <th>Position: </th>
+                    <td id="prof-position${nameId}"></td>
+                  </tr>
+                  <tr>
+                    <th>Team: </th>
+                    <td id="prof-team${nameId}"></td>
+                  </tr>
+                  <tr>
+                    <th>Conference: </th>
+                    <td id="prof-conference${nameId}"></td>
+                  </tr>
+                  <tr>
+                    <th>Division: </th>
+                    <td id="prof-division${nameId}"></td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`);
+
+    $(player).attr("playerId", playerId);
+
+    $(player).attr("playerName", playerName);
+
+    $(player).attr("id", playerName);
 
     $(".player-info-div").prepend(player);
 
-    $("#season-stats-h3").text(playerName + " Season Stats");
+    // $("#season-stats-h3").text(playerName + " Season Stats");
 
-    $(".card").click(function() {
+    // console.log(player);
+
+    $("#"+playerName).click(function() {
 
         var table = $("#stats-body");
 
@@ -542,5 +606,7 @@ function cloneProfile(playerId, seasons, playerName) {
         }
 
     });
+
+    // console.log("cloned!");
 
 }

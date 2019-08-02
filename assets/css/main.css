@@ -86,6 +86,7 @@ body {
 }
 
 #season-stats {
+    margin-top: 50px;
     border: 1px silver solid;
 }
 
@@ -119,9 +120,7 @@ h4 {
 .inActivity{
     display: none;
 }
-#results{
-    padding-top: 50px;
-}
+
 
 div.player-info-div {
 
@@ -137,9 +136,17 @@ div.player-info-div>div {
 
 }
 
-div.player-info-div div:hover {
-    
+.card {
+    background: transparent;
+    border: none;
+}
+
+.card-horizontal:hover {
     background-color: silver;
   
   }
+#results{
+    width: 100%;
+    background: linear-gradient(0deg,  white 45%, blue 100%)
+}
 
