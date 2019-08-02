@@ -47,9 +47,6 @@ function getGif(search){
         newdiv.addClass('gifDiv');
         const img = $('<img>'); 
         img.attr("src", source);
-        img.attr('data-state', 'animate');
-        img.attr('data-animate', source);
-        img.attr('data-still', item.images.original_still.url);
         newdiv.append(img);
         gifArea.prepend(newdiv);
         })
@@ -177,12 +174,13 @@ window.onload = function (){
     $(document).on('scroll', function () {
 
         var yOffset = window.pageYOffset;
+        const navbar = $('.navbar');
         // console.log(yOffset);
         if (yOffset > 80) {
-            $('.navbar').addClass('activity');
+            navbar.addClass('activity');
         }
         else {
-            $('.navbar').removeClass('activity');
+            navbar.removeClass('activity');
 
         }
     })
