@@ -22,6 +22,7 @@ function color (color){
           $('.input-group-text').css('color',"white");
         //   $('.profileArea').css("transform", "translate(0,22%)");
           $('#results').css("background", `linear-gradient(0deg,  white 45%, ${color} 100%)`);
+          $('.gifDiv').css("background", color);
 }
 function reset() {
     const carousel = $('.carousel');
