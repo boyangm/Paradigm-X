@@ -80,7 +80,8 @@ function logo(team){
           logoArea.css({
                 'background' :`url(${name.source}) center no-repeat,radial-gradient( circle,  white 66%, ${name.color} 89%)`,
                 'background-size' : 'contain',
-                'height' : '90vh'
+                'height' : 'unset',
+                'padding-top' : '30%'
             });
           color(name.color);
           getGif(name.team);
@@ -184,7 +185,7 @@ window.onload = function (){
         let seasonArray = ["2014", "2015", "2016", "2017", "2018"];
         teamUpdate(dropDownItemTeam);
         timeSeriesData(seasonArray, dropDownItem);
-        smoothScroll('#results');
+        smoothScroll('#results'); 
     })
     $(document).on('scroll', function () {
 
