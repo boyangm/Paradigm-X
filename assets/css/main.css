@@ -17,6 +17,7 @@ body {
 }
 .gifArea{
     width: 100%;
+    
 }
 .gifArea img{
     width: 100%;
@@ -34,6 +35,8 @@ body {
 .jumbotron {
     /* background-attachment: fixed !important; */
     position: relative;
+    margin:0;
+    padding-bottom: 50px;
 }
 
 .jumbotron h1 {
@@ -51,6 +54,7 @@ body {
     display: flex;
     flex-flow: row wrap;
     transition: transform 0.6s 0.5s;
+   
 }
 
 .container-fluid {
@@ -113,6 +117,10 @@ h4 {
 #stats-body>tr>td, #trend-body>#trend-stats>td {
     padding-left: 50px;
 }
+.inActivity{
+    display: none;
+}
+
 
 div.player-info-div {
 
@@ -134,8 +142,10 @@ div.player-info-div>div {
 }
 
 .card-horizontal:hover {
-    
     background-color: silver;
   
   }
-
+#results{
+    width: 100%;
+    background: linear-gradient(0deg,  white 45%, blue 100%)
+}
