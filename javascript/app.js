@@ -81,9 +81,6 @@ function logo(team){
 
 window.onload = function (){
     const teamsList = $('#teamsList');
-    const playerList = $('#playerList');
-    $('.jumbotron').addClass('inActivity');
-
     function getTeamProfile() {
         fetch(`https://free-nba.p.rapidapi.com/teams?page=0`, {
             headers: {
@@ -105,6 +102,9 @@ window.onload = function (){
                 // console.log(data.api.players);   
             })
     }
+    const playerList = $('#playerList');
+    $('.jumbotron').addClass('inActivity');
+
 
 
 

@@ -147,5 +147,8 @@ div.player-info-div>div {
   }
 #results{
     width: 100%;
-    background: linear-gradient(0deg,  white 45%, blue 100%)
+    background: linear-gradient(0deg,  white 45%, blue 100%);
+    padding-left: 10%;
+    padding-top: 5%;
+    padding-right: 10%;
 }
