@@ -175,6 +175,7 @@ div.player-info-div>div {
 }
 .gifArea img {
     width: 50%;
+    height: unset;
     padding: 0;
     margin: 0 auto;
     display: block;
