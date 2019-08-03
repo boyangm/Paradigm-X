@@ -36,6 +36,11 @@ function reset() {
 
 
 }
+/**
+ * Scrolls to the element that you put in.
+ *
+ * @param {string} place
+ */
 function smoothScroll(place) {
     $('html, body').animate({
         scrollTop: $(".jumbotron").offset().top
