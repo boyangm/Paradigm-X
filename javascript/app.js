@@ -16,6 +16,17 @@ const teamLogo = [
     {team: "Toronto Raptors", source: 'https://i.ebayimg.com/images/g/-wUAAOSwjW5dDAip/s-l1600.jpg',color: "#CE1141"},{team: "Utah Jazz", source: 'https://i.ebayimg.com/images/g/5IAAAOSwQWhdDAio/s-l1600.jpg', color :"#002B5C"},
     {team: "Washington Wizards", source: 'https://i.ebayimg.com/images/g/AS4AAOSwQjxdDAiq/s-l1600.jpg',color: "#002B5C"}
 ]
+/**
+ *
+ * Checking to see if it should add the class or not.
+ * @param {number} yOffset 
+ * @returns {boolean}
+ */
+function shouldAddClass(yOffset){
+    const top = $(window).scrollTop();
+
+return yOffset > 84 && top > 5
+}
 function color (color){
     $('.navbar').css('background-color',color);
           $('.input-group-text').css('background-color',color);
@@ -194,11 +205,12 @@ window.onload = function (){
         smoothScroll('#results'); 
     })
     $(document).on('scroll', function () {
-
+        console.log($(window).scrollTop())
         var yOffset = window.pageYOffset;
         const navbar = $('.navbar');
         // console.log(yOffset);
-        if (yOffset > 80) {
+        var addClass = shouldAddClass(yOffset)
+        if (addClass) {
             navbar.addClass('activity');
         }
         else {
