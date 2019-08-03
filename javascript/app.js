@@ -174,10 +174,10 @@ window.onload = function (){
     teamsList.on('change', () => {
         playerList.empty();
         let dropDownItem = $(teamsList).val();
+        getTeamPlayers(dropDownItem);
         teamUpdate(dropDownItem);
       
         smoothScroll('.gifArea');
-        getTeamPlayers(dropDownItem);
     })
     playerList.on('change', () => {
         $('.carousel').css("display","none");
