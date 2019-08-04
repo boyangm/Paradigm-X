@@ -1,3 +1,4 @@
+var seasonArray = ["2014", "2015", "2016", "2017", "2018"];
 $(document).ready(function () {
 
     $("#submit").click(function (event) {
@@ -5,7 +6,6 @@ $(document).ready(function () {
         event.preventDefault();
         var search = $("#query").val();
         // var seasonArray = ["2018", "2017", "2016", "2015", "2014"];
-        var seasonArray = ["2014", "2015", "2016", "2017", "2018"];
         timeSeriesData(seasonArray, search);
         smoothScroll('#results');
 
@@ -541,7 +541,7 @@ function cloneProfile(playerId, seasons, playerName) {
     
     var player=$(`<div class="container-fluid player-click-ref" id="player-info" value="0">
       <h2 id="prof-name${nameId}"></h2>
-      <button class="save-player" data-player-name=""><i class="fas fa-heart"></i></button>
+      <button class="save-player" data-playerName="${playerName}"><i class="fas fa-heart"></i></button>
       <div class="row">
         <div class="col-12 mt-3">
           <div class="card">

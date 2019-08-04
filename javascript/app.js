@@ -178,6 +178,11 @@ window.onload = function (){
 
     getTeamProfile();
 
+    /**
+     *
+     * Hide the carousel image/ Bring up jumotron/ Update with team logo and color scheme.
+     * @param {string} team
+     */
     function teamUpdate(team){
        
         $('.carousel').addClass('inActivity');
