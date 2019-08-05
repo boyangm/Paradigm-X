@@ -28,6 +28,7 @@ var playersRef = firebase.database().ref();
 database.ref().on("child_added", function (data) {
   const favName = data.val().playerName1;
   // $("#favArea").text(data.val().playerName1);
+  fromHome=false;
    getPlayer(seasonArray, favName);
 
    

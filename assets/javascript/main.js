@@ -1,6 +1,7 @@
 var seasonArray = ["2014", "2015", "2016", "2017", "2018"];
+let fromHome =true;
 $(document).ready(function () {
-
+    fromHome =true;
     $("#submit").click(function (event) {
 
         event.preventDefault();
@@ -85,10 +86,12 @@ function getPlayer(seasons, playerName) {
         let count = { count: 0 };
         cloneProfile(playerId, seasons, name);
         populateProfile(myJSON);
+        if (fromHome){
         for (var i = 0; i < seasons.length; i++) {
             // count.push("complete");
             getStats(seasons[i], playerId, stats, seasons, count);
         }
+        };
         // $('.container h3').text(playerName);
     });
 

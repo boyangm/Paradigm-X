@@ -111,6 +111,7 @@ function logo(team){
 }
 
 window.onload = function (){
+    fromHome=true;
     const teamsList = $('#teamsList');
     function getTeamProfile() {
         fetch(`https://free-nba.p.rapidapi.com/teams?page=0`, {
