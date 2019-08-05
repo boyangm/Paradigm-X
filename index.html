@@ -9,12 +9,15 @@
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
   <script src="https://kit.fontawesome.com/f65107a1d5.js"></script>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src='assets/javascript/main.js'></script>
+  
   <script src='javascript/app.js'></script>
   <link rel='stylesheet' type='text/css' media='screen' href='assets/css/main.css'>
 </head>
@@ -29,9 +32,9 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
 
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link" href="favorites.html">Favorites</a>
-        </li>
+        </li> -->
       </ul>
       <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" id="query" type="search" placeholder="Search" aria-label="Search">
@@ -216,6 +219,36 @@
 
   </footer>
   <!-- Footer -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+        apiKey: "AIzaSyBrzK7dJ0bZgystmNqv2xaOj7IwJF05sGQ",
+        authDomain: "hooperpedia.firebaseapp.com",
+        databaseURL: "https://hooperpedia.firebaseio.com",
+        projectId: "hooperpedia",
+        storageBucket: "",
+        messagingSenderId: "797528490036",
+        appId: "1:797528490036:web:231863142248d6f5"
+      };
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+var database = firebase.database();
+
+function saveFavorite(playerName, team){
+    database.ref().push({
+        playerName1: playerName,
+    });
+}
+
+$(document).on("click", ".save-player", function(){
+    var playerName = $(this).attr("data-Playername");
+    saveFavorite(playerName);
+});
+
+
+ </script>
 </body>
 
 </html>

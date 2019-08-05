@@ -1,5 +1,6 @@
 *{
     box-sizing: border-box;
+
 }
 body {
 margin : auto;
@@ -60,7 +61,7 @@ padding: 0;
 }
 
 .container-fluid {
-    width: 30%;
+    display: block;
 }
 
 #chart {
@@ -103,14 +104,12 @@ table {
 .card-horizontal {
     padding: 5px 5px 5px 5px;
     display: flex;
+    position: relative;
     flex: 1 1 auto;
     /* border: solid 1px silver; */
     width: 350px;
 }
 
-.card-body {
-    padding-left: 5px;
-}
 
 h4 {
     padding: 5px;
@@ -125,22 +124,30 @@ h4 {
 
 
 div.player-info-div {
+    display: flex !important;
+    flex-flow: row;
+    width: 100%;
 
     overflow: auto;
+
     white-space: nowrap;
 
 }
 
+
 div.player-info-div>div {
     
   display: inline-block;
-  margin: 50px;
+  margin: 10%;
 
 }
 
 .card {
     background: transparent;
     border: none;
+}
+.card-body{
+    width: 100%;
 }
 
 .card-horizontal:hover {
