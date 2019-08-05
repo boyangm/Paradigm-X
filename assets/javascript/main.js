@@ -5,10 +5,12 @@ $(document).ready(function () {
     $("#submit").click(function (event) {
 
         event.preventDefault();
+        $('.carousel').css("display","none");
+        $('.jumbotron').removeClass('inActivity');
         var search = $("#query").val();
         // var seasonArray = ["2018", "2017", "2016", "2015", "2014"];
         timeSeriesData(seasonArray, search);
-        smoothScroll('#results');
+        smoothScroll('.player-info-div');
 
 
     });
